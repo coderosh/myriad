@@ -6,6 +6,7 @@ export type NodeType =
   | "IfStatement"
   | "WhileStatement"
   | "BreakStatement"
+  | "ContinueStatement"
   | "ReturnStatement"
   | "ThrowStatement"
   | "TryCatchStatement"
@@ -58,6 +59,10 @@ export interface WhileStatement extends Node {
 
 export interface BreakStatement extends Node {
   type: "BreakStatement";
+}
+
+export interface ContinueStatement extends Node {
+  type: "ContinueStatement";
 }
 
 export interface ReturnStatement extends Node {

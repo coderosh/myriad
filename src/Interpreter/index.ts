@@ -1,35 +1,36 @@
 import {
-  AssignmentExpression,
-  BinaryExpression,
-  BlockStatement,
-  CallExpression,
-  ExpressionStatement,
-  FunctionDeclaration,
+  Node,
+  Literal,
+  Program,
   Identier,
   IfStatement,
-  Literal,
+  BlockStatement,
+  CallExpression,
+  BinaryExpression,
+  ExpressionStatement,
+  FunctionDeclaration,
   LogicalExpression,
   MemberExpression,
-  Node,
-  Program,
   ReturnStatement,
   ThrowStatement,
-  TryCatchStatement,
-  UnaryExpression,
-  VariableDeclaration,
   WhileStatement,
+  UnaryExpression,
+  TryCatchStatement,
+  VariableDeclaration,
+  AssignmentExpression,
 } from "../Parser/types";
 import {
+  Value,
+  ObjectValue,
   BooleanValue,
   FunctionValue,
   NativeFunctionValue,
-  ObjectValue,
-  Value,
 } from "./types";
 
 import Environment from "./Environment";
 import {
   FalseBreakError,
+  FalseContinueError,
   FalseReturnError,
   mkBoolean,
   mkIgnore,
@@ -120,6 +121,9 @@ class Interpreter {
 
       case "BreakStatement":
         return this.breakStatement();
+
+      case "ContinueStatement":
+        return this.continueStatement();
     }
 
     throw new Error(`"${node.type}" Not implemented yet by interpreter`);
@@ -133,6 +137,10 @@ class Interpreter {
     const returnValue = arg === null ? mkNull() : this.eval(arg, env);
 
     throw new FalseReturnError(returnValue);
+  }
+
+  private continueStatement(): Value {
+    throw new FalseContinueError();
   }
 
   private breakStatement(): Value {
@@ -169,6 +177,7 @@ class Interpreter {
         cond = this.eval(node.condition, env).value;
       } catch (err) {
         if (err instanceof FalseBreakError) break;
+        if (err instanceof FalseContinueError) continue;
 
         throw err;
       }
@@ -350,7 +359,6 @@ class Interpreter {
     const name = (node.left as Identier).name;
     let value: Value;
 
-    // complexassignment operator
     if (node.isComplex) {
       const operator =
         node.operator === this.config.opConfig.plusEqual

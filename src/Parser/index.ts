@@ -1,13 +1,14 @@
-import Tokenizer from "../Tokenizer";
-import { Token, TokenType } from "../Tokenizer/types";
-import { LangConfig } from "../configs";
 import ParserError from "./error";
+import Tokenizer from "../Tokenizer";
+import { LangConfig } from "../configs";
+import { Token, TokenType } from "../Tokenizer/types";
 import {
   AssignmentExpression,
   BinaryExpression,
   BlockStatement,
   BooleanLiteral,
   BreakStatement,
+  ContinueStatement,
   EmptyStatement,
   ExpressionStatement,
   FunctionDeclaration,
@@ -111,6 +112,8 @@ class Parser {
         return this.throwStatement();
       case TokenType.Break:
         return this.breakStatement();
+      case TokenType.Continue:
+        return this.continueStatement();
       default:
         return this.expressionStatement();
     }
@@ -167,6 +170,12 @@ class Parser {
     this.eat(TokenType.Break);
     this.eat(TokenType.Semicolon);
     return { type: "BreakStatement" } as BreakStatement;
+  }
+
+  private continueStatement(): Node {
+    this.eat(TokenType.Continue);
+    this.eat(TokenType.Semicolon);
+    return { type: "ContinueStatement" } as ContinueStatement;
   }
 
   private whileStatement(): Node {

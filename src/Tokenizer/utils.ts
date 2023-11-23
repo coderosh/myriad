@@ -19,6 +19,7 @@ export const getKeywordsFromConfig = (
     [keywordConfig.catch]: TokenType.Catch,
     [keywordConfig.throw]: TokenType.Throw,
     [keywordConfig.break]: TokenType.Break,
+    [keywordConfig.continue]: TokenType.Continue,
   } as const;
 };
 

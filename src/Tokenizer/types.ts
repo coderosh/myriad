@@ -40,6 +40,7 @@ export enum TokenType {
   Catch,
   Throw,
   Break,
+  Continue,
 }
 
 export interface Token {

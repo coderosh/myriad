@@ -34,6 +34,7 @@ export const keywordConfig = {
   catch: "samat",
   throw: "faal",
   break: "todh",
+  continue: "continue",
 };
 
 export const bracketConfig = {

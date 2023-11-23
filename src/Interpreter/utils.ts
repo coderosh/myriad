@@ -78,11 +78,19 @@ function getObjPrintValue(objValue: ObjectValue) {
   return obj;
 }
 
-export class FalseReturnError {
-  constructor(public value: Value) {}
+export class FalseReturnError extends Error {
+  constructor(public value: Value) {
+    super(`Cannot use return outside the function`);
+  }
 }
 
 export class FalseBreakError extends Error {
+  constructor() {
+    super(`Cannot use break outside the loop`);
+  }
+}
+
+export class FalseContinueError extends Error {
   constructor() {
     super(`Cannot use "break" keyword outside the loop`);
   }
