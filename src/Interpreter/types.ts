@@ -9,7 +9,8 @@ export type ValueType =
   | "object"
   | "function"
   | "native-function"
-  | "ignore";
+  | "ignore"
+  | "array";
 
 export interface Value {
   type: ValueType;
@@ -39,6 +40,11 @@ export interface BooleanValue extends Value {
 export interface ObjectValue extends Value {
   type: "object";
   value: Map<string, Value>;
+}
+
+export interface ArrayValue extends Value {
+  type: "array";
+  value: Value[];
 }
 
 export interface FunctionValue extends Value {

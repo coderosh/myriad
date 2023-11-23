@@ -6,7 +6,8 @@ const functions = {
   print: print,
   len: (args: Value[]): Value => {
     const arg = args[0];
-    if (arg.type === "string") return mkNumber(arg.value.length);
+    if (arg.type === "string" || arg.type === "array")
+      return mkNumber(arg.value.length);
     return mkNull();
   },
   input: (args: Value[]): Value => {

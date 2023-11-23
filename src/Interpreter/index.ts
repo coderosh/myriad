@@ -18,6 +18,8 @@ import {
   TryCatchStatement,
   VariableDeclaration,
   AssignmentExpression,
+  ObjectExpression,
+  ArrayExpression,
 } from "../Parser/types";
 import {
   Value,
@@ -25,6 +27,7 @@ import {
   BooleanValue,
   FunctionValue,
   NativeFunctionValue,
+  ArrayValue,
 } from "./types";
 
 import Environment from "./Environment";
@@ -62,11 +65,16 @@ class Interpreter {
       case "StringLiteral":
       case "NullLiteral":
       case "BooleanLiteral":
-      case "ObjectLiteral":
         return this.literal(node as Literal, env);
 
       case "Identifier":
         return this.identifier(node as Identier, env);
+
+      case "ObjectExpression":
+        return this.objectExpression(node as ObjectExpression, env);
+
+      case "ArrayExpression":
+        return this.arrayExpression(node as ArrayExpression, env);
 
       case "BinaryExpression":
         return this.binaryExpression(node as BinaryExpression, env);
@@ -203,23 +211,28 @@ class Interpreter {
     env: Environment,
     set?: Value
   ): Value {
-    let obj;
+    let value: Value;
     if (node.object.type === "MemberExpression") {
-      obj = this.memberExpression(node.object as MemberExpression, env).value;
+      value = this.memberExpression(node.object as MemberExpression, env);
     } else if (node.object.type === "CallExpression") {
-      obj = this.callExpression(node.object as CallExpression, env).value;
-    } else {
+      value = this.callExpression(node.object as CallExpression, env);
+    } else if (node.object.type === "Identifier") {
       const name = (node.object as Identier).name;
-      obj = env.lookup(name).value;
+      value = env.lookup(name);
+    } else {
+      value = this.eval(node.object, env);
     }
 
-    const prop = node.computed
-      ? this.eval(node.prop, env).value
-      : (node.prop as Identier).name;
+    const prop =
+      node.computed || node.prop.type === "NumericLiteral"
+        ? this.eval(node.prop, env).value
+        : (node.prop as Identier).name;
 
     if (typeof set !== "undefined") {
-      if (obj instanceof Map) {
-        obj.set(prop, set);
+      if (value.type === "object") {
+        value.value.set(prop, set);
+      } else if (value.type === "array" && typeof prop === "number") {
+        value.value[prop] = set;
       } else {
         throw new Error(
           `Member property can be assigned to object only. Assigned to ${JSON.stringify(
@@ -229,23 +242,35 @@ class Interpreter {
       }
     }
 
-    if (obj === null) {
+    if (value.value === null) {
       throw new Error(
         `Cannot read property of a null value, reading ${JSON.stringify(prop)}`
       );
     }
 
-    if (typeof obj === "string") {
-      return mkString(obj[prop]);
+    if (value.type === "string") {
+      return mkString(value.value[prop]);
     }
 
-    let val = obj.get(prop);
-
-    if (typeof val === "undefined") {
-      val = mkNull();
+    if (value.type === "array" && typeof prop === "number") {
+      const val = value.value[prop];
+      if (val) return val;
+      return mkNull();
     }
 
-    return val;
+    if (value.type === "object") {
+      let val = value.value.get(prop);
+
+      if (typeof val === "undefined") {
+        val = mkNull();
+      }
+
+      return val;
+    }
+
+    throw new Error(
+      `Cannot read the property "${prop}" of type "${value.type}"`
+    );
   }
 
   private callExpression(node: CallExpression, env: Environment): Value {
@@ -277,10 +302,16 @@ class Interpreter {
       if (err instanceof FalseReturnError) {
         return err.value;
       }
+
+      throw err;
     }
 
     throw new Error(
-      `Cannot call a value that is not a function ${JSON.stringify(fn)}`
+      `Cannot call a value that is not a function ${JSON.stringify(
+        fn,
+        null,
+        2
+      )}`
     );
   }
 
@@ -422,21 +453,32 @@ class Interpreter {
       case "BooleanLiteral":
         return mkBoolean(node.value);
 
-      case "ObjectLiteral":
-        const props = new Map();
-        for (const prop of node.value) {
-          const val = prop.shorthand
-            ? env.lookup(prop.key)
-            : this.eval(prop.value, env);
-
-          props.set(prop.key, val);
-        }
-
-        return { type: "object", value: props } as ObjectValue;
-
       default:
         return mkNull();
     }
+  }
+
+  private arrayExpression(node: ArrayExpression, env: Environment) {
+    const values = [];
+
+    for (const value of node.value) {
+      values.push(this.eval(value, env));
+    }
+
+    return { type: "array", value: values } as ArrayValue;
+  }
+
+  private objectExpression(node: ObjectExpression, env: Environment) {
+    const props = new Map();
+    for (const prop of node.value) {
+      const val = prop.shorthand
+        ? env.lookup(prop.key)
+        : this.eval(prop.value, env);
+
+      props.set(prop.key, val);
+    }
+
+    return { type: "object", value: props } as ObjectValue;
   }
 
   private logicalExpression(node: LogicalExpression, env: Environment): Value {

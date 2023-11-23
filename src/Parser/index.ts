@@ -3,6 +3,7 @@ import Tokenizer from "../Tokenizer";
 import { LangConfig } from "../configs";
 import { Token, TokenType } from "../Tokenizer/types";
 import {
+  ArrayExpression,
   AssignmentExpression,
   BinaryExpression,
   BlockStatement,
@@ -19,7 +20,7 @@ import {
   Node,
   NullLiteral,
   NumericLiteral,
-  ObjectLiteral,
+  ObjectExpression,
   Program,
   Property,
   ReturnStatement,
@@ -526,13 +527,24 @@ class Parser {
       if (this.current.type === TokenType.Dot) {
         this.eat(TokenType.Dot);
 
-        const identifier = this.eat(TokenType.Identifier);
+        let prop: Node;
+        if (this.current.type === (TokenType as any).Number) {
+          prop = {
+            type: "NumericLiteral",
+            value: +this.eat(TokenType.Number).value,
+          } as NumericLiteral;
+        } else {
+          prop = {
+            type: "Identifier",
+            name: this.eat(TokenType.Identifier).value,
+          } as Identier;
+        }
 
         obj = {
           type: "MemberExpression",
           computed: false,
           object: obj,
-          prop: { type: "Identifier", name: identifier.value } as Identier,
+          prop,
         } as MemberExpression;
       } else {
         this.eat(TokenType.OpenSquare);
@@ -612,19 +624,49 @@ class Parser {
         return expression;
 
       case TokenType.OpenCurly:
-        return this.objectLiteral();
+        return this.objectExpression();
+
+      case TokenType.OpenSquare:
+        return this.arrayExpression();
 
       default:
         const info = this.tokenizer.getCurrentCursorInfo();
         throw new ParserError(
-          `Unexpected primary expression`,
+          `Unexpected primary expression "${this.current.value}"`,
           info.line,
           info.column
         );
     }
   }
 
-  private objectLiteral(): Node {
+  private arrayExpression(): Node {
+    this.eat(TokenType.OpenSquare);
+
+    const elements: Node[] = [];
+
+    let isFirst = true;
+    while (
+      this.current.type !== TokenType.EOF &&
+      this.current.type !== TokenType.CloseSquare
+    ) {
+      if (isFirst) {
+        isFirst = false;
+      } else {
+        this.eat(TokenType.Comma);
+      }
+
+      // allow for ending , in arrays [1, 2, 3, ]
+      if (this.current.type === (TokenType as any).CloseSquare) break;
+
+      elements.push(this.expression());
+    }
+
+    this.eat(TokenType.CloseSquare);
+
+    return { type: "ArrayExpression", value: elements } as ArrayExpression;
+  }
+
+  private objectExpression(): Node {
     this.eat(TokenType.OpenCurly);
 
     const props: Property[] = [];
@@ -660,7 +702,7 @@ class Parser {
 
     this.eat(TokenType.CloseCurly);
 
-    return { value: props, type: "ObjectLiteral" } as ObjectLiteral;
+    return { value: props, type: "ObjectExpression" } as ObjectExpression;
   }
 }
 

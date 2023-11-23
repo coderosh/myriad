@@ -17,13 +17,14 @@ export type NodeType =
   | "LogicalExpression"
   | "MemberExpression"
   | "CallExpression"
+  | "ObjectExpression"
+  | "ArrayExpression"
   | "UnaryExpression"
   | "Identifier"
   | "NumericLiteral"
   | "StringLiteral"
   | "BooleanLiteral"
   | "NullLiteral"
-  | "ObjectLiteral"
   | "Property";
 
 export interface Node {
@@ -167,9 +168,14 @@ export interface NullLiteral extends Node {
   value: null;
 }
 
-export interface ObjectLiteral extends Node {
-  type: "ObjectLiteral";
+export interface ObjectExpression extends Node {
+  type: "ObjectExpression";
   value: Property[];
+}
+
+export interface ArrayExpression extends Node {
+  type: "ArrayExpression";
+  value: Node[];
 }
 
 export interface Property extends Node {
@@ -183,5 +189,4 @@ export type Literal =
   | StringLiteral
   | NumericLiteral
   | NullLiteral
-  | BooleanLiteral
-  | ObjectLiteral;
+  | BooleanLiteral;

@@ -61,6 +61,9 @@ const getPrintValue = (arg: Value) => {
     case "object":
       return getObjPrintValue(arg as ObjectValue);
 
+    case "array":
+      return null; // TODO:
+
     default:
       return null;
   }
