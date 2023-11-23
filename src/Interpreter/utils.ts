@@ -1,5 +1,6 @@
 import Environment from "./Environment";
 import {
+  ArrayValue,
   BooleanValue,
   FunctionValue,
   NativeFunctionValue,
@@ -62,12 +63,20 @@ const getPrintValue = (arg: Value) => {
       return getObjPrintValue(arg as ObjectValue);
 
     case "array":
-      return null; // TODO:
+      return getArrayPrintValue(arg as ArrayValue);
 
     default:
       return null;
   }
 };
+
+function getArrayPrintValue(arrValue: ArrayValue): Value[] {
+  const arr: Value[] = [];
+  for (const val of arrValue.value) {
+    arr.push(getPrintValue(val));
+  }
+  return arr;
+}
 
 function getObjPrintValue(objValue: ObjectValue) {
   const mapValue = objValue.value;
