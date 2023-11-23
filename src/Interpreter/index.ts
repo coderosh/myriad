@@ -21,6 +21,8 @@ import {
   ObjectExpression,
   ArrayExpression,
   UpdateExpression,
+  ImportStatement,
+  ExportStatement,
 } from "../Parser/types";
 import {
   Value,
@@ -42,6 +44,9 @@ import {
   mkNumber,
   mkString,
 } from "./utils";
+import { readFileSync } from "fs";
+import path from "path";
+import { LangType, getRunner } from "..";
 
 class Interpreter {
   private config: {
@@ -136,9 +141,45 @@ class Interpreter {
 
       case "ContinueStatement":
         return this.continueStatement();
+
+      case "ImportStatement":
+        return this.importStatement(node as ImportStatement, env);
+
+      case "ExportStatement":
+        return this.exportStatement(node as ExportStatement, env);
     }
 
     throw new Error(`"${node.type}" Not implemented yet by interpreter`);
+  }
+
+  private exportStatement(node: ExportStatement, env: Environment): Value {
+    for (const arg of node.args) {
+      env.export(arg);
+    }
+
+    return mkIgnore();
+  }
+
+  private importStatement(node: ImportStatement, env: Environment): Value {
+    const src = readFileSync(path.join(process.cwd(), node.arg), "utf-8");
+
+    const ext = path.extname(node.arg);
+    const type = ext.slice(1, ext.length - 1) as LangType;
+
+    const run = getRunner(type);
+
+    const e = run(src, true) as Environment;
+
+    env.declare(
+      node.name,
+      {
+        type: "object",
+        value: e.findRootParent().exported,
+      } as ObjectValue,
+      true
+    );
+
+    return mkIgnore();
   }
 
   private updateExpression(node: UpdateExpression, env: Environment): Value {

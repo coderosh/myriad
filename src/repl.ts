@@ -2,6 +2,7 @@ import { promises as readline } from "readline";
 
 import { print } from "./Interpreter/utils";
 import { getRunner, LangType } from "./index";
+import { Value } from "./Interpreter/types";
 
 const repl = async (type: LangType = "main") => {
   console.log(`\nWelcome to myriad \n`);
@@ -22,7 +23,7 @@ const repl = async (type: LangType = "main") => {
         continue;
       }
 
-      const value = run(src);
+      const value = run(src, false) as Value;
 
       if (value && value.type !== "ignore") print([value]);
     } catch (err: any) {

@@ -42,6 +42,9 @@ export enum TokenType {
   Throw,
   Break,
   Continue,
+
+  Import,
+  Export,
 }
 
 export interface Token {

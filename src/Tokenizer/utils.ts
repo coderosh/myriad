@@ -20,6 +20,8 @@ export const getKeywordsFromConfig = (
     [keywordConfig.throw]: TokenType.Throw,
     [keywordConfig.break]: TokenType.Break,
     [keywordConfig.continue]: TokenType.Continue,
+    [keywordConfig.import]: TokenType.Import,
+    [keywordConfig.export]: TokenType.Export,
   } as const;
 };
 

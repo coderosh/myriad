@@ -11,10 +11,12 @@ import {
   BreakStatement,
   ContinueStatement,
   EmptyStatement,
+  ExportStatement,
   ExpressionStatement,
   FunctionDeclaration,
   Identier,
   IfStatement,
+  ImportStatement,
   LogicalExpression,
   MemberExpression,
   Node,
@@ -116,9 +118,43 @@ class Parser {
         return this.breakStatement();
       case TokenType.Continue:
         return this.continueStatement();
+      case TokenType.Import:
+        return this.importStatement();
+      case TokenType.Export:
+        return this.exportStatement();
       default:
         return this.expressionStatement();
     }
+  }
+
+  private exportStatement(): Node {
+    this.eat(TokenType.Export);
+
+    this.eat(TokenType.OpenCurly);
+
+    const args = this.parameterList();
+
+    this.eat(TokenType.CloseCurly);
+
+    this.eat(TokenType.Semicolon);
+
+    return {
+      type: "ExportStatement",
+      args,
+    } as ExportStatement;
+  }
+
+  private importStatement(): Node {
+    this.eat(TokenType.Import);
+    const arg = this.eat(TokenType.String).value;
+    const name = this.eat(TokenType.Identifier).value;
+    this.eat(TokenType.Semicolon);
+
+    return {
+      type: "ImportStatement",
+      arg,
+      name,
+    } as ImportStatement;
   }
 
   private throwStatement(): Node {

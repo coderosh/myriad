@@ -47,7 +47,6 @@ npm install -g @coderosh/myriad
 - uwu flavour
 - pirate flavour
 - vscode extension
-- import file/module
 - browser usage
 - errors based on flavours
 

@@ -37,6 +37,8 @@ export const keywordConfig = {
   throw: "throw",
   break: "break",
   continue: "continue",
+  import: "import",
+  export: "export",
 };
 
 export const bracketConfig = {

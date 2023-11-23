@@ -37,6 +37,8 @@ export const keywordConfig = {
   throw: "faal",
   break: "todh",
   continue: "jaarirakh",
+  import: "aayat",
+  export: "niryat",
 };
 
 export const bracketConfig = {

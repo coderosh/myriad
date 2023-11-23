@@ -27,8 +27,8 @@ export const mkBoolean = (value: boolean) => {
   return { type: "boolean", value } as BooleanValue;
 };
 
-export const mkIgnore = (value: any = "") => {
-  return { type: "ignore", value } as Value;
+export const mkIgnore = () => {
+  return { type: "ignore" } as Value;
 };
 
 export const mkNativeFunction = (

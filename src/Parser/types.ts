@@ -9,6 +9,8 @@ export type NodeType =
   | "ContinueStatement"
   | "ReturnStatement"
   | "ThrowStatement"
+  | "ImportStatement"
+  | "ExportStatement"
   | "TryCatchStatement"
   | "ExpressionStatement"
   | "VariableDeclaration"
@@ -70,6 +72,17 @@ export interface ContinueStatement extends Node {
 export interface ReturnStatement extends Node {
   type: "ReturnStatement";
   argument: Node | null;
+}
+
+export interface ImportStatement extends Node {
+  type: "ImportStatement";
+  arg: string;
+  name: string;
+}
+
+export interface ExportStatement extends Node {
+  type: "ExportStatement";
+  args: string[];
 }
 
 export interface TryCatchStatement extends Node {

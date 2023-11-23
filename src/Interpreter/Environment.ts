@@ -5,10 +5,20 @@ class Environment {
   private variables: Map<string, Value>;
   private constants: Set<string>;
 
+  public exported: Map<string, Value>;
+
   constructor(parent: Environment | null = null) {
     this.parent = parent;
     this.variables = new Map<string, Value>();
+    this.exported = new Map<string, Value>();
     this.constants = new Set<string>();
+  }
+
+  public export(name: string): Value {
+    const parent = this.findRootParent();
+    const val = parent.lookup(name);
+    parent.exported.set(name, val);
+    return val;
   }
 
   public declare(name: string, val: Value, isConstant: boolean): Value {
@@ -50,6 +60,11 @@ class Environment {
     }
 
     return this.parent.resolve(name);
+  }
+
+  public findRootParent(): Environment {
+    if (this.parent === null) return this;
+    return this.parent.findRootParent();
   }
 }
 
