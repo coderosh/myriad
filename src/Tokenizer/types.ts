@@ -17,6 +17,7 @@ export enum TokenType {
   Boolean,
   Null,
 
+  AdditiveOneOperator,
   SimpleAssignmentOperator,
   ComplexAssignmentOperator,
   AdditiveOperator,

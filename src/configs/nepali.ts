@@ -1,6 +1,8 @@
 export const opConfig = {
   lessOrEqual: "sabarabar",
   greatOrEqual: "thbarabar",
+  minusMinus: "--",
+  plusPlus: "++",
   great: "thulo",
   less: "sano",
   plus: "+",

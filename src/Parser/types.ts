@@ -13,6 +13,7 @@ export type NodeType =
   | "ExpressionStatement"
   | "VariableDeclaration"
   | "AssignmentExpression"
+  | "UpdateExpression"
   | "BinaryExpression"
   | "LogicalExpression"
   | "MemberExpression"
@@ -134,6 +135,13 @@ export interface CallExpression extends Node {
   type: "CallExpression";
   callee: Node;
   args: Node[];
+}
+
+export interface UpdateExpression extends Node {
+  type: "UpdateExpression";
+  operator: string;
+  arg: Node;
+  prefix: boolean;
 }
 
 export interface MemberExpression extends Node {

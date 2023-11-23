@@ -1,6 +1,8 @@
 export const opConfig = {
   lessOrEqual: "<=",
   greatOrEqual: ">=",
+  minusMinus: "--",
+  plusPlus: "++",
   great: ">",
   less: "<",
   plus: "+",

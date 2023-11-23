@@ -28,6 +28,7 @@ import {
   ThrowStatement,
   TryCatchStatement,
   UnaryExpression,
+  UpdateExpression,
   VariableDeclaration,
   WhileStatement,
 } from "./types";
@@ -482,7 +483,34 @@ class Parser {
       } as UnaryExpression;
     }
 
+    if (this.current.type === TokenType.AdditiveOneOperator) {
+      return this.updateExpression();
+    }
+
     return this.callMemberExpression();
+  }
+
+  private updateExpression(id?: string): Node {
+    let operator: string;
+    let prefix = false;
+
+    if (typeof id === "undefined") {
+      operator = this.eat(TokenType.AdditiveOneOperator).value;
+      id = this.eat(TokenType.Identifier).value;
+      prefix = true;
+    } else {
+      operator = this.eat(TokenType.AdditiveOneOperator).value;
+      prefix = false;
+    }
+
+    const arg = { name: id, type: "Identifier" } as Identier;
+
+    return {
+      arg,
+      prefix,
+      operator,
+      type: "UpdateExpression",
+    } as UpdateExpression;
   }
 
   private callMemberExpression(): Node {
@@ -588,6 +616,9 @@ class Parser {
           type: "Identifier",
           name: this.eat(TokenType.Identifier).value,
         } as Identier;
+
+        if (this.current.type === (TokenType as any).AdditiveOneOperator)
+          return this.updateExpression(ident.name);
 
         return ident;
 

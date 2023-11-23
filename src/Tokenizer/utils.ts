@@ -54,6 +54,9 @@ export const getSpSymbolsFromConfig = (
     [opConfig.mulEqual]: TokenType.ComplexAssignmentOperator,
     [opConfig.divEqual]: TokenType.ComplexAssignmentOperator,
 
+    [opConfig.plusPlus]: TokenType.AdditiveOneOperator,
+    [opConfig.minusMinus]: TokenType.AdditiveOneOperator,
+
     [opConfig.plus]: TokenType.AdditiveOperator,
     [opConfig.minus]: TokenType.AdditiveOperator,
     [opConfig.mul]: TokenType.MultiplicativeOperator,

@@ -7,7 +7,7 @@ kaam isPalindrome(str) {
         yedi (str[i] hoina str[length - 1 - i]) 
             farki galat rok
 
-        i += 1 rok
+        i ++ rok
     }
 
     farki satya rok

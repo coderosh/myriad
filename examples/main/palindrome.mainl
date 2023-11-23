@@ -5,7 +5,7 @@ func isPalindrome(str) {
     while(i < length / 2) {
         if(str[i] != str[length - 1- i]) return false;
 
-        i += 1;
+        i++;
     }
 
     return true;

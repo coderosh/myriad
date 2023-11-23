@@ -20,6 +20,7 @@ import {
   AssignmentExpression,
   ObjectExpression,
   ArrayExpression,
+  UpdateExpression,
 } from "../Parser/types";
 import {
   Value,
@@ -115,6 +116,9 @@ class Interpreter {
       case "MemberExpression":
         return this.memberExpression(node as MemberExpression, env);
 
+      case "UpdateExpression":
+        return this.updateExpression(node as UpdateExpression, env);
+
       case "IfStatement":
         return this.ifStatement(node as IfStatement, env);
 
@@ -135,6 +139,25 @@ class Interpreter {
     }
 
     throw new Error(`"${node.type}" Not implemented yet by interpreter`);
+  }
+
+  private updateExpression(node: UpdateExpression, env: Environment): Value {
+    const name = (node.arg as Identier).name;
+
+    const resolvedEnv = env.resolve(name);
+    const oldVal = resolvedEnv.lookup(name);
+
+    if (oldVal.type !== "number") {
+      return mkNull();
+    }
+
+    const newVal = mkNumber(
+      node.operator === "--" ? oldVal.value - 1 : oldVal.value + 1
+    );
+
+    resolvedEnv.assign(name, newVal);
+
+    return node.prefix ? newVal : oldVal;
   }
 
   private returnStatement(node: ReturnStatement, env: Environment): Value {

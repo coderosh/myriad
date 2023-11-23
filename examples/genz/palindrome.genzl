@@ -8,7 +8,7 @@ squad isPalindrome(str) {
         sus (str[i] nah str[length - 1 - i])
             clapback cap rn
 
-        i +be 1 rn
+        i++ rn
     }
 
 
