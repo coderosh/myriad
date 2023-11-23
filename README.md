@@ -55,3 +55,4 @@ npm install -g @coderosh/myriad
 - main
 - genz
 - nepali
+- uwu
