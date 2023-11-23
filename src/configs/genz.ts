@@ -1,5 +1,5 @@
 export const opConfig = {
-  lessOrEqual: "flaybe",
+  lessOrEqual: "slaybe",
   greatOrEqual: "flopbe",
   great: "slay",
   less: "flop",

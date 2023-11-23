@@ -1,0 +1,27 @@
+squad binarySearch (arr, x) {
+
+    lit start be 0 rn 
+    lit end be lenz(arr) - 1 rn
+         
+    tweark (start slaybe end){
+ 
+        lit mid be math.floor((start + end)/2) rn
+  
+        sus (arr[mid] finna x) clapback nocap rn
+ 
+        nvm sus (arr[mid] flop x) 
+             start be mid + 1 rn
+        nvm
+             end be mid - 1 rn
+    }
+  
+    clapback cap rn
+}
+
+
+litaf arr be [1, 5, 9, 20] rn
+
+flex("arr: ", arr) rn
+flex("Nine exists: ", binarySearch(arr, 9)) rn
+flex("Two exists: ", binarySearch(arr, 2)) rn
+  

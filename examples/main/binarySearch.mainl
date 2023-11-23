@@ -1,0 +1,27 @@
+func binarySearch (arr, x) {
+
+    let start = 0; 
+    let end = len(arr) - 1;
+         
+    while (start<=end){
+ 
+        let mid = math.floor((start + end)/2);
+  
+        if (arr[mid] == x) return true;
+ 
+        else if (arr[mid] < x) 
+             start = mid + 1;
+        else
+             end = mid - 1;
+    }
+  
+    return false;
+}
+
+
+const arr = [1, 5, 9, 20];
+
+print("arr: ", arr);
+print("Nine exists: ", binarySearch(arr, 9));
+print("Two exists: ", binarySearch(arr, 2));
+  

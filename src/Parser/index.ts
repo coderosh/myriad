@@ -631,6 +631,7 @@ class Parser {
 
       default:
         const info = this.tokenizer.getCurrentCursorInfo();
+
         throw new ParserError(
           `Unexpected primary expression "${this.current.value}"`,
           info.line,

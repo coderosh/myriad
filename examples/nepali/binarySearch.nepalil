@@ -1,0 +1,27 @@
+kaam binarySearch (arr, x) {
+
+    manum start barabar 0 rok 
+    manum end barabar lambai(arr) - 1 rok
+         
+    jabasamma (start sabarabar end){
+ 
+        manum mid barabar math.floor((start + end)/2) rok
+  
+        yedi (arr[mid] ho x) farki satya rok
+ 
+        natra yedi (arr[mid] sano x) 
+             start barabar mid + 1 rok
+        natra
+             end barabar mid - 1 rok
+    }
+  
+    farki galat rok
+}
+
+
+sthir arr barabar [1, 5, 9, 20] rok
+
+lekh("arr: ", arr) rok
+lekh("Nine exists: ", binarySearch(arr, 9)) rok
+lekh("Two exists: ", binarySearch(arr, 2)) rok
+  
