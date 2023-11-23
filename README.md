@@ -39,16 +39,18 @@ npm install -g @coderosh/myriad
   myriad name.genzl
 
   # nepali
+  myriad name.uwul
+
+  # nepali
   myriad name.nepalil
   ```
 
 ## Remaining
 
-- uwu flavour
 - pirate flavour
 - vscode extension
 - browser usage
-- errors based on flavours
+- errors and examples based on flavours
 
 ## Flavours
 
