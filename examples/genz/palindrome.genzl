@@ -1,0 +1,22 @@
+squad isPalindrome(str) {
+    litaf length be lenz(str) rn
+
+    lit i be 0 rn
+
+    tweark(i flop length / 2) {
+
+        sus (str[i] nah str[length - 1 - i])
+            clapback cap rn
+
+        i +be 1 rn
+    }
+
+
+    clapback nocap rn
+}
+
+litaf str be spill('Enter a string: ') rn
+
+litaf value be isPalindrome(str) rn
+
+flex(value) rn

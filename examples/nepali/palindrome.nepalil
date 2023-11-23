@@ -1,0 +1,20 @@
+kaam isPalindrome(str) {
+    sthir length barabar lambai(str) rok
+
+    manum i barabar 0 rok
+
+    jabasamma (i sano length / 2) {
+        yedi (str[i] hoina str[length - 1 - i]) 
+            farki galat rok
+
+        i += 1 rok
+    }
+
+    farki satya rok
+}
+
+sthir str barabar bhan('Enter a string: ') rok
+
+sthir value barabar isPalindrome(str) rok
+
+lekh(value) rok

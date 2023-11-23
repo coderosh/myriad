@@ -1,0 +1,10 @@
+squad factorial(n){
+    sus(n finna 0 or n finna 1) 
+     clapback 1 rn
+
+    clapback n * factorial(n - 1) rn
+}
+
+lit value be factorial(5) rn
+
+flex(value) rn

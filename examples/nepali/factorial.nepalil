@@ -1,0 +1,10 @@
+kaam factorial(n){
+    yedi (n ho 0 wa n ho 1) 
+        farki 1 rok
+
+    farki n * factorial(n - 1) rok
+}
+
+manum value barabar factorial(5) rok
+
+lekh(value) rok
