@@ -1,0 +1,10 @@
+voyage factorial(n) {
+    ifn (n equalstwin 0 or n equalstwin 1) 
+        giveback 1 arrr
+
+    giveback n * factorial(n - 1) arrr
+}
+
+ahoy value binds factorial(5) arrr
+
+shout(value) arrr

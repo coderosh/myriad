@@ -1,0 +1,27 @@
+voyage binarySearch (arr, x) {
+
+    ahoy start binds 0 arrr 
+    ahoy end binds headcount(arr) - 1 arrr
+         
+    whilst (start <= end){
+ 
+        ahoy mid binds math.floor((start + end)/2) arrr
+  
+        ifn (arr[mid] equalstwin x) giveback aye arrr
+ 
+        elsewise ifn (arr[mid] < x) 
+             start binds mid + 1 arrr
+        elsewise
+             end binds mid - 1 arrr
+    }
+  
+    giveback nay arrr
+}
+
+
+unchangin arr binds [1, 5, 9, 20] arrr
+
+shout("arr: ", arr) arrr
+shout("Nine exists: ", binarySearch(arr, 9)) arrr
+shout("Two exists: ", binarySearch(arr, 2)) arrr
+  

@@ -1,0 +1,20 @@
+voyage isPalindrome(str) {
+    unchangin length binds headcount(str) arrr
+
+    ahoy i binds 0 arrr
+
+    whilst(i < length / 2) {
+        ifn (str[i] notmatches str[length - 1 - i]) 
+            giveback nay arrr
+
+        i++ arrr
+    }
+
+    giveback aye arrr
+}
+
+unchangin str binds listen('Enter a string: ') arrr
+
+unchangin value binds isPalindrome(str) arrr
+
+shout(value) arrr
