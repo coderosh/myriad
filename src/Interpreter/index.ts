@@ -176,13 +176,14 @@ class Interpreter {
   }
 
   private whileStatement(node: WhileStatement, env: Environment): Value {
-    let cond = this.eval(node.condition, env).value;
-
-    while (cond) {
+    while (true) {
       try {
-        this.eval(node.body, env);
+        let e = new Environment(env);
 
-        cond = this.eval(node.condition, env).value;
+        const cond = this.eval(node.condition, e).value;
+        if (!cond) break;
+
+        this.eval(node.body, e);
       } catch (err) {
         if (err instanceof FalseBreakError) break;
         if (err instanceof FalseContinueError) continue;
