@@ -19,7 +19,18 @@
     "genz",
     "nepali"
   ],
-  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/coderosh/myriad.git"
+  },
+  "author": {
+    "name": "Roshan Acharya",
+    "email": "acharyaroshan2357@gmail.com"
+  },
+  "bugs": {
+    "url": "https://github.com/coderosh/myriad/issues"
+  },
+  "homepage": "https://github.com/coderosh/myriad#readme",
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^20.9.2",
