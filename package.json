@@ -1,9 +1,9 @@
 {
   "name": "@coderosh/myriad",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "myriad - programming language",
   "bin": {
-    "myriad": "./dist/bin.js"
+    "myriad": "./bin/myriad"
   },
   "main": "dist/index.js",
   "scripts": {
