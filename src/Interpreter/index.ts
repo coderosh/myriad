@@ -45,7 +45,7 @@ import {
   mkNumber,
   mkString,
 } from "./utils";
-import { readFileSync } from "fs";
+import fs from "fs";
 import path from "path";
 import { LangType, getRunner } from "..";
 
@@ -164,10 +164,40 @@ class Interpreter {
     return mkIgnore();
   }
 
-  private importStatement(node: ImportStatement, env: Environment): Value {
-    const src = readFileSync(path.join(process.cwd(), node.arg), "utf-8");
+  private resolveImportPath(p: string): string {
+    const modulesPath = path.join(__dirname, "..", "..", "modules");
 
-    const ext = path.extname(node.arg);
+    const modulesList = fs
+      .readdirSync(modulesPath)
+      .map((p) => path.join(modulesPath, p))
+      .filter((p) => !fs.statSync(p).isDirectory())
+      .map((p) => path.parse(p).name);
+
+    if (modulesList.includes(p)) {
+      return path.join(modulesPath, p + ".mainl");
+    }
+
+    let fullPath = path.join(process.cwd(), p);
+
+    if (!fs.existsSync(fullPath))
+      throw new Error(`Trying to import ${fullPath} which doesn't exist`);
+
+    if (fs.statSync(fullPath).isDirectory()) {
+      fullPath = path.join(fullPath, "main.mainl");
+    }
+
+    if (!fs.existsSync(fullPath))
+      throw new Error(`Trying to import ${fullPath} which doesn't exist`);
+
+    return fullPath;
+  }
+
+  private importStatement(node: ImportStatement, env: Environment): Value {
+    const fullPath = this.resolveImportPath(node.arg);
+
+    const src = fs.readFileSync(fullPath, "utf-8");
+
+    const ext = path.extname(fullPath);
     const type = ext.slice(1, ext.length - 1) as LangType;
 
     const run = getRunner(type);

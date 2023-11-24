@@ -168,9 +168,14 @@ try {
 
 - import
 
+  You can import both builtin module and file using import
+
   ```
-  import "./ops.mainl" as ops;
+  import "vector" vec; // builtin module
+
+  import "./ops.mainl" ops; // custom file
 
   const sum = ops.add(1, 2);
-  const diff = ops.sub(2, 1)
+
+  const vec = vec.create(2, 4);
   ```

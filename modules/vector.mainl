@@ -1,0 +1,33 @@
+func create(x, y){
+    return { x, y };
+}
+
+func add(vec1, vec2) {
+    return create(vec1.x + vec2.x, vec1.y + vec2.y);
+}
+
+func sub(vec1, vec2) {
+    return create(vec1.x - vec2.x, vec1.y - vec2.y);
+}
+
+func dot(vec1, vec2) {
+    return create(vec1.x * vec2.x, vec1.y * vec2.y);
+}
+
+func scale(vec,n) {
+    return create(vec.x * n, vec.y * n);
+}
+
+func length(vec) {
+    return math.sqrt(vec.x * vec.x + vec.y * vec.y);
+}
+
+func dist(vec1, vec2) {
+    return len(sub(vec1, vec2));
+}
+
+func equals(vec1, vec2) {
+    return vec1.x == vec2.x && vec1.y == vec2.y;
+}
+
+export { create, add, sub, scale, length, dist, dot };

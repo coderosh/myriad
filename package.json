@@ -1,6 +1,6 @@
 {
   "name": "@coderosh/myriad",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A esoteric programming language written in typescript supporting syntaxes based in different lingos (genz, uwu, pirate, etc)",
   "bin": {
     "myriad": "./bin/myriad"
@@ -37,7 +37,6 @@
   "devDependencies": {
     "@types/node": "^20.9.2",
     "@types/readline-sync": "^1.4.7",
-    "esbuild-runner": "^2.2.2",
     "typescript": "^5.2.2"
   },
   "dependencies": {
