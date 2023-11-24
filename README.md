@@ -35,11 +35,12 @@ myriad doc.genzl
 myriad fiwe.uwul
 myriad scroll.piratel
 myriad file.nepalil
+
+# Change language in repl
+> lang
+# > lang
+# > Which ? genz
 ```
-
-## Examples
-
-You can find examples for each flavours inside [examples](./examples)
 
 ## Flavours
 
@@ -49,15 +50,26 @@ You can find examples for each flavours inside [examples](./examples)
 - pirate
 - nepali
 
+## Examples
+
+You can find examples for each flavours inside [examples](./examples)
+
 ## Documentation
 
-> Coming soon...
+- [main](./docs/main.md)
+- genz
+- uwu
+- pirate
+- nepali
 
-## Remaining
+## FAQ
 
-- vscode extension
-- browser usage
-- errors and examples based on flavours
+<details>
+  <summary>How do use this in production</summary>
+  
+  <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">This video</a>
+  shows the step by step process 
+</details>
 
 ## License
 

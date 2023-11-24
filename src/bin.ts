@@ -17,8 +17,24 @@ const fromFile = async (filename: string) => {
 
 const file = process.argv[2];
 
-if (file) {
+if (hasArg("-v") || hasArg("--version")) {
+  const pkg = getPkgInfo();
+  console.log(`\n${pkg.name} v${pkg.version}`);
+} else if (file) {
   fromFile(file);
 } else {
-  repl();
+  const pkg = getPkgInfo();
+  repl("main", pkg.name, pkg.version);
+}
+
+function hasArg(key: string) {
+  return process.argv.includes(key);
+}
+
+function getPkgInfo() {
+  const pkg = require("../package.json");
+  return {
+    name: pkg.name.replace("@coderosh/", ""),
+    version: pkg.version,
+  };
 }

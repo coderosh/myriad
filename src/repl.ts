@@ -4,8 +4,8 @@ import { print } from "./Interpreter/utils";
 import { getRunner, LangType } from "./index";
 import { Value } from "./Interpreter/types";
 
-const repl = async (type: LangType = "main") => {
-  console.log(`\nWelcome to myriad \n`);
+const repl = async (type: LangType = "main", name: string, version: number) => {
+  console.log(`\n Repl ${name} v${version} \n`);
 
   let run = getRunner(type);
 
@@ -17,7 +17,7 @@ const repl = async (type: LangType = "main") => {
 
       if (src.trim() === "exit") {
         break;
-      } else if (src.trim() === "changelang") {
+      } else if (src.trim() === "lang") {
         const which = (await prompt.question("> Which ? ")) as LangType;
         run = getRunner(which);
         continue;

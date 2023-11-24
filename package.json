@@ -1,6 +1,6 @@
 {
   "name": "@coderosh/myriad",
-  "version": "0.0.8",
+  "version": "0.1.0",
   "description": "A esoteric programming language written in typescript supporting syntaxes based in different lingos (genz, uwu, pirate, etc)",
   "bin": {
     "myriad": "./bin/myriad"
@@ -8,7 +8,7 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
-    "prepublish": "npm run build"
+    "prepublishOnly": "npm run build"
   },
   "files": [
     "dist/**"
