@@ -89,15 +89,6 @@ const getGlobalEnvironment = (globalEnvConfig: { [key: string]: any }) => {
     );
   });
 
-  globalEnvironment.declare(
-    "printenv",
-    mkNativeFunction(() => {
-      console.log((globalEnvironment as any).variables.get("print").value.name);
-      return mkNull();
-    }),
-    true
-  );
-
   return globalEnvironment;
 };
 
