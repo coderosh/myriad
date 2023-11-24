@@ -1,27 +1,27 @@
-fwun binarySearch (arr, x) {
+fwun binawySeawch (aww, x) {
 
-    wet start ish 0 uwu 
-    wet end ish wen(arr) - 1 uwu
+    wet stwawt ish 0 uwu 
+    wet end ish wen(aww) - 1 uwu
          
-    whiwe (start <= end){
+    whiwe (stwawt <= end){
  
-        wet mid ish math.floor((start + end)/2) uwu
+        wet mwid ish math.floor((stwawt + end)/2) uwu
   
-        ifw (arr[mid] eqwualsu x) wetuwn twue uwu
+        ifw (aww[mwid] eqwualsu x) wetuwn twue uwu
  
-        ewse ifw (arr[mid] < x) 
-             start ish mid + 1 uwu
+        ewse ifw (aww[mwid] < x) 
+             stwawt ish mwid + 1 uwu
         ewse
-             end ish mid - 1 uwu
+             end ish mwid - 1 uwu
     }
   
     wetuwn fawse uwu
 }
 
 
-consty arr ish [1, 5, 9, 20] uwu
+consty aww ish [1, 5, 9, 20] uwu
 
-pwint("arr: ", arr) uwu
-pwint("Nine exists: ", binarySearch(arr, 9)) uwu
-pwint("Two exists: ", binarySearch(arr, 2)) uwu
+pwint("aww: ", aww) uwu
+pwint("Nine exists: ", binawySeawch(aww, 9)) uwu
+pwint("Two exists: ", binawySeawch(aww, 2)) uwu
   

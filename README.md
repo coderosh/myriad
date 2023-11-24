@@ -50,6 +50,7 @@ npm install -g @coderosh/myriad
 
 ## Remaining
 
+- for loop
 - vscode extension
 - browser usage
 - errors and examples based on flavours

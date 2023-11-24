@@ -1,9 +1,11 @@
-fwun isPalindrome(str) {
-    consty length ish wen(str) uwu
+fwun isPawindwome(stw) {
+    consty wength ish wen(stw) uwu
 
     wet i ish 0 uwu
-    whiwe (i < length / 2) {
-       ifw(str[i] nyotlsu str[length - 1 - i]) wetuwn fawse uwu
+
+    whiwe (i < wength / 2) {
+        ifw(stw[i] nyotlsu stw[wength - 1 - i]) 
+            wetuwn fawse uwu
 
         i++ uwu
     }
@@ -11,8 +13,8 @@ fwun isPalindrome(str) {
     wetuwn twue uwu
 }
 
-consty str ish inpawt('Enter a string: ') uwu
+consty stw ish inpawt('Entew a stwingu: ') uwu
 
-consty value ish isPalindrome(str) uwu
+consty vawue ish isPawindwome(stw) uwu
 
-pwint(value) uwu
+pwint(vawue) uwu

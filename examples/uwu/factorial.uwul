@@ -1,10 +1,10 @@
-fwun factorial(n){
+fwun factowiaw(n){
     ifw (n eqwualsu 0 ow n eqwualsu 1) 
         wetuwn 1 uwu
 
-    wetuwn n * factorial(n - 1) uwu
+    wetuwn n * factowiaw(n - 1) uwu
 }
 
-wet value ish factorial(5) uwu
+wet vawue ish factowiaw(5) uwu
 
-pwint(value) uwu
+pwint(vawue) uwu
