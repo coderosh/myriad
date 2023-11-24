@@ -39,6 +39,7 @@ export const keywordConfig = {
   continue: "keepgoin",
   import: "fetchaboard",
   export: "divvyup",
+  for: "fer",
 };
 
 export const bracketConfig = {

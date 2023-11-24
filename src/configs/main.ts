@@ -39,6 +39,7 @@ export const keywordConfig = {
   continue: "continue",
   import: "import",
   export: "export",
+  for: "for",
 };
 
 export const bracketConfig = {

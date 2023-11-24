@@ -39,6 +39,7 @@ export const keywordConfig = {
   continue: "finesse",
   import: "snag",
   export: "bestow",
+  for: "fr",
 };
 
 export const bracketConfig = {

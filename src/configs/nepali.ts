@@ -39,6 +39,7 @@ export const keywordConfig = {
   continue: "jaarirakh",
   import: "aayat",
   export: "niryat",
+  for: "lagi",
 };
 
 export const bracketConfig = {

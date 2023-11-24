@@ -1,5 +1,5 @@
 <h2 align="center">Myriad</h2>
-<p align="center">A multiple flavour toy programming language written in typescript.</p>
+<p align="center">A esoteric programming language written in typescript supporting different flavours (genz, uwu, pirate, etc).</p>
 
 <br />
 <p align="center">
@@ -25,40 +25,41 @@ npm install -g @coderosh/myriad
 
 ## Usage
 
-- repl
-  ```sh
-  myriad
-  ```
-- run file
+```sh
+# Open repl
+myriad
 
-  ```sh
-  # main
-  myriad name.mainl
+# Run file
+myriad file.mainl
+myriad doc.genzl
+myriad fiwe.uwul
+myriad scroll.piratel
+myriad file.nepalil
+```
 
-  # genz
-  myriad name.genzl
+## Examples
 
-  # uwu
-  myriad name.uwul
-
-  # pirate
-  myriad name.piratel
-
-  # nepali
-  myriad name.nepalil
-  ```
-
-## Remaining
-
-- for loop
-- vscode extension
-- browser usage
-- errors and examples based on flavours
+You can find examples for each flavours inside [examples](./examples)
 
 ## Flavours
 
 - main
 - genz
-- nepali
 - uwu
 - pirate
+- nepali
+
+## Documentation
+
+> Coming soon...
+
+## Remaining
+
+- template strings
+- vscode extension
+- browser usage
+- errors and examples based on flavours
+
+## License
+
+MIT

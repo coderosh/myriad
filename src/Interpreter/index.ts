@@ -23,6 +23,7 @@ import {
   UpdateExpression,
   ImportStatement,
   ExportStatement,
+  ForStatement,
 } from "../Parser/types";
 import {
   Value,
@@ -129,6 +130,9 @@ class Interpreter {
 
       case "WhileStatement":
         return this.whileStatement(node as WhileStatement, env);
+
+      case "ForStatement":
+        return this.forStatement(node as ForStatement, env);
 
       case "ThrowStatement":
         return this.throwStatement(node as ThrowStatement, env);
@@ -239,15 +243,44 @@ class Interpreter {
     return mkIgnore();
   }
 
+  private forStatement(node: ForStatement, env: Environment): Value {
+    const e = new Environment(env);
+
+    if (node.init) this.eval(node.init, e);
+
+    while (true) {
+      try {
+        const scope = new Environment(e);
+
+        const cond = node.condition
+          ? this.eval(node.condition, scope).value
+          : true;
+
+        if (!cond) break;
+
+        this.eval(node.body, scope);
+
+        if (node.update) this.eval(node.update, scope);
+      } catch (err) {
+        if (err instanceof FalseBreakError) break;
+        if (err instanceof FalseContinueError) continue;
+
+        throw err;
+      }
+    }
+
+    return mkIgnore();
+  }
+
   private whileStatement(node: WhileStatement, env: Environment): Value {
     while (true) {
       try {
-        let e = new Environment(env);
+        let scope = new Environment(env);
 
-        const cond = this.eval(node.condition, e).value;
+        const cond = this.eval(node.condition, scope).value;
         if (!cond) break;
 
-        this.eval(node.body, e);
+        this.eval(node.body, scope);
       } catch (err) {
         if (err instanceof FalseBreakError) break;
         if (err instanceof FalseContinueError) continue;

@@ -39,6 +39,7 @@ export const keywordConfig = {
   continue: "continwue",
   import: "impowt",
   export: "expowt",
+  for: "fow",
 };
 
 export const bracketConfig = {

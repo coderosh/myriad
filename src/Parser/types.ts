@@ -5,6 +5,7 @@ export type NodeType =
   | "FunctionDeclaration"
   | "IfStatement"
   | "WhileStatement"
+  | "ForStatement"
   | "BreakStatement"
   | "ContinueStatement"
   | "ReturnStatement"
@@ -58,6 +59,14 @@ export interface IfStatement extends Node {
 export interface WhileStatement extends Node {
   type: "WhileStatement";
   condition: Node;
+  body: Node;
+}
+
+export interface ForStatement extends Node {
+  type: "ForStatement";
+  init: Node | null;
+  condition: Node | null;
+  update: Node | null;
   body: Node;
 }
 

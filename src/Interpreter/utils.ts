@@ -104,6 +104,6 @@ export class FalseBreakError extends Error {
 
 export class FalseContinueError extends Error {
   constructor() {
-    super(`Cannot use "break" keyword outside the loop`);
+    super(`Cannot use continue outside the loop`);
   }
 }

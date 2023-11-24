@@ -13,6 +13,7 @@ import {
   EmptyStatement,
   ExportStatement,
   ExpressionStatement,
+  ForStatement,
   FunctionDeclaration,
   Identier,
   IfStatement,
@@ -122,9 +123,52 @@ class Parser {
         return this.importStatement();
       case TokenType.Export:
         return this.exportStatement();
+      case TokenType.For:
+        return this.forStatement();
       default:
         return this.expressionStatement();
     }
+  }
+
+  private forStatement(): Node {
+    this.eat(TokenType.For);
+    this.eat(TokenType.OpenParen);
+
+    let init: Node | null = null;
+    let condition: Node | null = null;
+    let update: Node | null = null;
+
+    if (
+      this.current.type === TokenType.Let ||
+      this.current.type === TokenType.Const
+    ) {
+      init = this.variableStatement();
+    } else {
+      if (this.current.type !== TokenType.Semicolon) init = this.expression();
+      this.eat(TokenType.Semicolon);
+    }
+
+    if (this.current.type !== TokenType.Semicolon) {
+      condition = this.expression();
+    }
+
+    this.eat(TokenType.Semicolon);
+
+    if (this.current.type !== TokenType.CloseParen) {
+      update = this.expression();
+    }
+
+    this.eat(TokenType.CloseParen);
+
+    const body = this.statement();
+
+    return {
+      type: "ForStatement",
+      body,
+      condition,
+      init,
+      update,
+    } as ForStatement;
   }
 
   private exportStatement(): Node {

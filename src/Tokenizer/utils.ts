@@ -22,6 +22,7 @@ export const getKeywordsFromConfig = (
     [keywordConfig.continue]: TokenType.Continue,
     [keywordConfig.import]: TokenType.Import,
     [keywordConfig.export]: TokenType.Export,
+    [keywordConfig.for]: TokenType.For,
   } as const;
 };
 

@@ -1,7 +1,7 @@
 {
   "name": "@coderosh/myriad",
-  "version": "0.0.6",
-  "description": "myriad - programming language",
+  "version": "0.0.7",
+  "description": "A esoteric programming language written in typescript supporting syntaxes based in different lingos (genz, uwu, pirate, etc)",
   "bin": {
     "myriad": "./bin/myriad"
   },
@@ -33,7 +33,7 @@
     "url": "https://github.com/coderosh/myriad/issues"
   },
   "homepage": "https://github.com/coderosh/myriad#readme",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "@types/node": "^20.9.2",
     "@types/readline-sync": "^1.4.7",
