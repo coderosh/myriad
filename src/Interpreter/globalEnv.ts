@@ -1,6 +1,13 @@
 import Environment from "./Environment";
 import { ObjectValue, Value } from "./types";
-import { mkNativeFunction, mkNull, mkNumber, mkString, print } from "./utils";
+import {
+  mkIgnore,
+  mkNativeFunction,
+  mkNull,
+  mkNumber,
+  mkString,
+  print,
+} from "./utils";
 
 const functions = {
   print: print,
@@ -21,6 +28,26 @@ const functions = {
     }
 
     return mkString(result);
+  },
+  format: (args: Value[]): Value => {
+    if (args[0].type !== "string") return mkNull();
+
+    const str: string = args[0].value;
+
+    let i = 0;
+
+    const formatted = str.replace(/\\?{}/gs, (match: string, index: number) => {
+      if (match[0] === "\\" && str[index - 1] !== "\\") {
+        return match.slice(1);
+      }
+
+      const val = args[++i];
+      if (typeof val === "undefined") return ` <${i}th parameter expected> `;
+
+      return val.value;
+    });
+
+    return mkString(formatted);
   },
 };
 

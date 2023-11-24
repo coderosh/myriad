@@ -151,10 +151,11 @@ class Tokenizer {
   private string(src: string): Token | null {
     let str = this.match(src, /^"[^"]*"/);
     if (!str) str = this.match(src, /^'[^']*'/);
+    if (!str) str = this.match(src, /^`[^`]*`/);
 
-    if (!str) return null;
+    if (str) return this.token(TokenType.String, str.slice(1, -1));
 
-    return this.token(TokenType.String, str.slice(1, -1));
+    return null;
   }
 }
 

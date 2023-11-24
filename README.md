@@ -55,7 +55,6 @@ You can find examples for each flavours inside [examples](./examples)
 
 ## Remaining
 
-- template strings
 - vscode extension
 - browser usage
 - errors and examples based on flavours
