@@ -1,13 +1,7 @@
+import print from "./print";
 import Environment from "./Environment";
 import { ObjectValue, Value } from "./types";
-import {
-  mkIgnore,
-  mkNativeFunction,
-  mkNull,
-  mkNumber,
-  mkString,
-  print,
-} from "./utils";
+import { mkNativeFunction, mkNull, mkNumber, mkString } from "./utils";
 
 const functions = {
   print: print,

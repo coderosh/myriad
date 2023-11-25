@@ -1,3 +1,4 @@
+import { colors } from "../utils";
 import Environment from "./Environment";
 import {
   ArrayValue,
@@ -36,59 +37,6 @@ export const mkNativeFunction = (
 ) => {
   return { type: "native-function", value } as NativeFunctionValue;
 };
-
-export const print = (args: Value[]): Value => {
-  console.log(...args.map((arg) => getPrintValue(arg)));
-
-  return mkIgnore();
-};
-
-const getPrintValue = (arg: Value) => {
-  switch (arg.type) {
-    case "string":
-    case "number":
-    case "boolean":
-    case "null":
-      return arg.value;
-
-    case "native-function":
-      return `<native-function>`;
-
-    case "function":
-      return `< ${(arg as FunctionValue).name} (${(
-        arg as FunctionValue
-      ).params.join(", ")}){...} >`;
-
-    case "object":
-      return getObjPrintValue(arg as ObjectValue);
-
-    case "array":
-      return getArrayPrintValue(arg as ArrayValue);
-
-    default:
-      return null;
-  }
-};
-
-function getArrayPrintValue(arrValue: ArrayValue): Value[] {
-  const arr: Value[] = [];
-  for (const val of arrValue.value) {
-    arr.push(getPrintValue(val));
-  }
-  return arr;
-}
-
-function getObjPrintValue(objValue: ObjectValue) {
-  const mapValue = objValue.value;
-
-  const obj: { [key: string]: Value } = {};
-
-  for (const [k, v] of mapValue.entries()) {
-    obj[k] = getPrintValue(v);
-  }
-
-  return obj;
-}
 
 export class FalseReturnError extends Error {
   constructor(public value: Value) {

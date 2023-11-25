@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  ansi-colors:
+    specifier: ^4.1.3
+    version: 4.1.3
   readline-sync:
     specifier: ^1.4.10
     version: 1.4.10
@@ -31,6 +34,11 @@ packages:
   /@types/readline-sync@1.4.7:
     resolution: {integrity: sha512-tPPerBmYwWX66KcZFYPjCuJfF8ykGD0GtPx6r33KYm0v4g4x68VK33/v4kLEoDwnnkYwcY2s9oYgMfTKMr3krg==}
     dev: true
+
+  /ansi-colors@4.1.3:
+    resolution: {integrity: sha512-/6w/C21Pm1A7aZitlI5Ni/2J6FFQN8i1Cvz3kHABAAbw93v/NlvKdVOqz7CCWz/3iv/JplRSEEZ83XION15ovw==}
+    engines: {node: '>=6'}
+    dev: false
 
   /readline-sync@1.4.10:
     resolution: {integrity: sha512-gNva8/6UAe8QYepIQH/jQ2qn91Qj0B9sYjMBBs3QOB8F2CXcKgLxQaJRP76sWVRQt+QU+8fAkCbCvjjMFu7Ycw==}
