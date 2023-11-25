@@ -1,11 +1,11 @@
 ## Declarations
 
 - Variables
-  ```
-  let name  = "Roshan Acharya";
+  ```js
+  let name = "Roshan Acharya";
   ```
 - Constants
-  ```
+  ```js
   const name = "Roshan Acharya";
   ```
 
@@ -13,13 +13,13 @@
 
 - Singleline
 
-  ```
+  ```js
   // This is a single line comment
   ```
 
 - Multiline
 
-  ```
+  ```js
   /*
       This is a multi line comment
   */
@@ -29,33 +29,33 @@
 
 - String
 
-  ```
+  ```js
   let name = "Roshan Acharya";
   ```
 
 - Number
 
-  ```
+  ```js
   let age = 100;
   ```
 
 - Boolean
-  ```
+  ```js
   let x = false;
   let y = true;
   ```
 - Null
 
-  ```
+  ```js
   let n = null;
   ```
 
 - Objects
 
-  ```
+  ```js
   let age = 100;
 
-  let obj = { name: "Roshan Acharya", age }
+  let obj = { name: "Roshan Acharya", age };
 
   print(obj.name);
   print(obj.age);
@@ -63,8 +63,8 @@
 
 - Arrays
 
-  ```
-  let arr = ["Roshan", 100, true, false, null]
+  ```js
+  let arr = ["Roshan", 100, true, false, null];
 
   print(arr[0]);
   print(arr[1]);
@@ -72,23 +72,23 @@
 
 ## If Statements
 
-```
+```js
 let val;
 
-if(x > 0) {
-    val = "positive";
+if (x > 0) {
+  val = "positive";
 } else if (x < 0) {
-    val = "negative";
-}else {
-    val = "equal";
+  val = "negative";
+} else {
+  val = "equal";
 }
 
 print(val);
 ```
 
-## Function
+## Function Statements
 
-```
+```js
 func log(val){
     print(val);
 }
@@ -96,7 +96,7 @@ func log(val){
 
 Funcions return last expression by default
 
-```
+```js
 func add(x, y){
     x + y;
 }
@@ -104,9 +104,19 @@ func add(x, y){
 
 Or you can use the `return` keyword
 
-```
+```js
 func add(x, y){
     return x + y;
+}
+```
+
+## Function Expressions
+
+You can define functions as a expressions too. Similar to function statements without function name.
+
+```js
+const add = func (x, y) {
+  return x + y;
 }
 ```
 
@@ -114,15 +124,15 @@ func add(x, y){
 
 - While
 
-  ```
+  ```js
   let x = 0;
 
-  while(x < 20) {
-    if(x == 10) continue;
+  while (x < 20) {
+    if (x == 10) continue;
 
     const y = calculateY(x);
 
-    if(y == null) break;
+    if (y == null) break;
 
     print("Value of x is: ", x);
 
@@ -132,21 +142,21 @@ func add(x, y){
 
 - For
 
-  ```
-  for(let i = 0; i < 20; i++) {}
+  ```js
+  for (let i = 0; i < 20; i++) {}
   ```
 
 ## Try Catch
 
-```
+```js
 try {
-    const x = calculateValue();
+  const x = calculateValue();
 
-    if(x == null) {
-        throw "Something went wrong";
-    }
+  if (x == null) {
+    throw "Something went wrong";
+  }
 } catch (err) {
-    print(err);
+  print(err);
 }
 ```
 
@@ -154,7 +164,7 @@ try {
 
 - export
 
-  ```
+  ```js
   func add(x, y) {
     x + y;
   }
@@ -170,7 +180,7 @@ try {
 
   You can import both builtin module and file using import
 
-  ```
+  ```js
   import "vector" vec; // builtin module
 
   import "./ops.myriad" ops; // custom file

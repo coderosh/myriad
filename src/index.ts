@@ -29,4 +29,15 @@ const getRunner = (type: LangType = "myriad") => {
   };
 };
 
+export const getLangTypeFromExt = (ext: string) => {
+  let type = ext.slice(1, ext.length - 1);
+
+  // if ext is .myriad then in above calculation
+  // myriad will be myria, so check for that case
+
+  if (type === "myria") type = "myriad";
+
+  return type as LangType;
+};
+
 export { getRunner, Parser, Interpreter, getGlobalEnvironment, configs };

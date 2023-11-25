@@ -1,4 +1,4 @@
-import { promises as readline } from "readline";
+import readline from "readline";
 
 import { print } from "./Interpreter/utils";
 import { getRunner, LangType } from "./index";
@@ -25,6 +25,9 @@ const repl = async (
         const which = (await prompt.question("> Which ? ")) as LangType;
         run = getRunner(which);
         continue;
+      } else if (src.trim() === "clear") {
+        prompt.clear();
+        continue;
       } else if (src.trim() === "") {
         continue;
       }
@@ -43,13 +46,17 @@ const repl = async (
 export default repl;
 
 const createPrompt = () => {
-  const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout,
-  });
+  const rl = readline.createInterface(process.stdin, process.stdout);
 
   return {
-    question: (query: string) => rl.question(query),
+    question: (query: string) =>
+      new Promise<string>((resolve) =>
+        rl.question(query, (answer) => resolve(answer))
+      ),
     close: () => rl.close(),
+    clear: () => {
+      readline.cursorTo(process.stdout, 0, 0);
+      readline.clearScreenDown(process.stdout);
+    },
   };
 };
