@@ -65,7 +65,7 @@ You can find examples for each flavours inside [examples](./examples)
 ## FAQ
 
 <details>
-  <summary>How do use this in production</summary>
+  <summary>How to use this in production</summary>
   
   <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">This video</a>
   shows the step by step process 

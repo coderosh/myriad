@@ -21,6 +21,8 @@ const repl = async (type: LangType = "main", name: string, version: number) => {
         const which = (await prompt.question("> Which ? ")) as LangType;
         run = getRunner(which);
         continue;
+      } else if (src.trim() === "") {
+        continue;
       }
 
       const value = run(src, false) as Value;
