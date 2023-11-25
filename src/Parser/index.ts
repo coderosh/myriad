@@ -67,13 +67,17 @@ class Parser {
 
     if (token.type === TokenType.EOF) {
       const info = this.tokenizer.getCurrentCursorInfo();
-      throw new ParserError(`Unexpected end of input`, info.line, info.column);
+      throw new ParserError(
+        `Unexpected end of inputm, Expected type \`${TokenType[type]}\``,
+        info.line,
+        info.column
+      );
     }
 
     if (token.type !== type) {
       const info = this.tokenizer.getCurrentCursorInfo();
       throw new ParserError(
-        `Unexpected token "${token.value}" Expected type "${TokenType[type]}"`,
+        `Unexpected token "${token.value}", Expected type "${TokenType[type]}"`,
         info.line,
         info.column
       );
