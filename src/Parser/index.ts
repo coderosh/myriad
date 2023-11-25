@@ -52,7 +52,7 @@ class Parser {
     this.config = config;
   }
 
-  private checkPoint() {
+  private saveCursor() {
     const cursor = this.tokenizer.cursor;
     const current = this.current;
 
@@ -375,7 +375,7 @@ class Parser {
   }
 
   private blockStatementOrObjectExpression() {
-    const goBackToCheckPoint = this.checkPoint();
+    const backtrack = this.saveCursor();
 
     this.eat(TokenType.OpenCurly);
 
@@ -388,14 +388,14 @@ class Parser {
         type === TokenType.Colon ||
         type === TokenType.CloseCurly
       ) {
-        goBackToCheckPoint();
+        backtrack();
         const objectExpression = this.objectExpression();
         this.eat(TokenType.Semicolon);
         return objectExpression;
       }
     }
 
-    goBackToCheckPoint();
+    backtrack();
     return this.blockStatement();
   }
 

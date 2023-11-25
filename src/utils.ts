@@ -6,4 +6,5 @@ export const colors = {
   blue: (str: string) => c.blue(str),
   green: (str: string) => c.green(str),
   magenta: (str: string) => c.magenta(str),
+  strip: (str: string) => c.strip(str),
 };

@@ -4,7 +4,9 @@ import { ObjectValue, Value } from "./types";
 import { mkNativeFunction, mkNull, mkNumber, mkString } from "./utils";
 
 const functions = {
-  print: print,
+  print: (args: Value[]) => {
+    return print(args);
+  },
   len: (args: Value[]): Value => {
     const arg = args[0];
     if (arg.type === "string" || arg.type === "array")

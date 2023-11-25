@@ -11,15 +11,25 @@ import {
 } from "./types";
 import { mkIgnore } from "./utils";
 
-const print = (args: Value[]): Value => {
-  console.log(...args.map((arg) => getPrintValue(arg)));
+const print = (
+  args: Value[],
+  printEscapeSequence = true,
+  printDecoratedString = false
+): Value => {
+  let values = args.map((arg) => getPrintValue(arg, printDecoratedString));
+
+  if (printEscapeSequence)
+    values = values.map((val) => preserveEscapeSequence(`${val}`));
+
+  console.log(...values);
+
   return mkIgnore();
 };
 
-const getPrintValue = (arg: Value) => {
+const getPrintValue = (arg: Value, printDecoratedString = false) => {
   switch (arg.type) {
     case "string":
-      return getStringPrintValue(arg as StringValue);
+      return getStringPrintValue(arg as StringValue, printDecoratedString);
 
     case "number":
       return getNumberPrintValue(arg as NumberValue);
@@ -59,8 +69,13 @@ function getNumberPrintValue(numValue: NumberValue): string {
   return colors.yellow(`${numValue.value}`);
 }
 
-function getStringPrintValue(strValue: StringValue): string {
+function getStringPrintValue(
+  strValue: StringValue,
+  printDecoratedString: boolean
+): string {
   const val = strValue.value;
+
+  if (!printDecoratedString) return val;
 
   const quote = !val.includes("'") ? "'" : !val.includes('"') ? '"' : "`";
   return colors.green(`${quote}${val}${quote}`);
@@ -84,7 +99,7 @@ function getArrayPrintValue(arrValue: ArrayValue): string {
   for (const val of arrValue.value) {
     if (str !== "[ ") str += ", ";
 
-    str += getPrintValue(val);
+    str += getPrintValue(val, true);
   }
 
   str += " ]";
@@ -104,7 +119,7 @@ function getObjPrintValue(objValue: ObjectValue) {
 
     str += newLine ? `\n  ` : " ";
 
-    str += `${k}: ${getPrintValue(v)}`;
+    str += `${k}: ${getPrintValue(v, true)}`;
   }
 
   str += newLine ? "\n" : " ";
@@ -112,6 +127,16 @@ function getObjPrintValue(objValue: ObjectValue) {
   str += `}`;
 
   return str;
+}
+
+function preserveEscapeSequence(s: string) {
+  return s.replace(/\\([\\rnt'"])/g, function (_, a) {
+    if (a === "n") return "\n";
+    if (a === "t") return "\t";
+    if (a === "r") return "\r";
+    if (a === "\\") return "\\";
+    return a;
+  });
 }
 
 export default print;

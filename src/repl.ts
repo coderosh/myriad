@@ -34,7 +34,7 @@ const repl = async (
 
       const value = run(src, false) as Value;
 
-      if (value && value.type !== "ignore") print([value]);
+      if (value && value.type !== "ignore") print([value], false, true);
     } catch (err: any) {
       console.error(err);
     }

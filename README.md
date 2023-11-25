@@ -52,9 +52,17 @@ myriad file.nepalil
 
 ## Examples
 
-You can find examples for each flavours inside [examples](./examples)
+Examples for each flavours are inside the [examples](./examples)
+
+- [myriad](./examples/myriad)
+- [genz](./examples/genz)
+- [uwu](./examples/uwu)
+- [pirate](./examples/pirate)
+- [nepali](./examples/nepali)
 
 ## Documentation
+
+Documentation for each flavours are inside the [docs](./dcs)
 
 - [myriad](./docs/myriad.md)
 - genz
