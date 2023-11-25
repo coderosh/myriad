@@ -4,8 +4,9 @@ import { Token, TokenType } from "./types";
 import { getKeywordsFromConfig, getSpSymbolsFromConfig } from "./utils";
 
 class Tokenizer {
+  public cursor: number;
+
   private src: string;
-  private cursor: number;
   private SYMBOLS: { [key: string]: TokenType };
   private KEYWORDS: { [key: string]: TokenType };
 

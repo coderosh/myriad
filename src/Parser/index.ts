@@ -52,6 +52,16 @@ class Parser {
     this.config = config;
   }
 
+  private checkPoint() {
+    const cursor = this.tokenizer.cursor;
+    const current = this.current;
+
+    return () => {
+      this.current = current;
+      this.tokenizer.cursor = cursor;
+    };
+  }
+
   private eat(type: TokenType) {
     const token = this.current;
 
@@ -103,7 +113,7 @@ class Parser {
       case TokenType.Semicolon:
         return this.emptyStatement();
       case TokenType.OpenCurly:
-        return this.blockStatement();
+        return this.blockStatementOrObjectExpression();
       case TokenType.Function:
         return this.functionDeclaration();
       case TokenType.If:
@@ -358,6 +368,31 @@ class Parser {
     );
 
     return params;
+  }
+
+  private blockStatementOrObjectExpression() {
+    const goBackToCheckPoint = this.checkPoint();
+
+    this.eat(TokenType.OpenCurly);
+
+    // { name, } or { name:  } is a object expression
+    if (this.current.type === TokenType.Identifier) {
+      this.eat(TokenType.Identifier);
+      const type = this.current.type as any;
+      if (
+        type === TokenType.Comma ||
+        type === TokenType.Colon ||
+        type === TokenType.CloseCurly
+      ) {
+        goBackToCheckPoint();
+        const objectExpression = this.objectExpression();
+        this.eat(TokenType.Semicolon);
+        return objectExpression;
+      }
+    }
+
+    goBackToCheckPoint();
+    return this.blockStatement();
   }
 
   private blockStatement(): Node {
