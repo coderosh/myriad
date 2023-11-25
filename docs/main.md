@@ -86,7 +86,7 @@ if(x > 0) {
 print(val);
 ```
 
-## Functions
+## Function
 
 ```
 func log(val){
@@ -173,7 +173,7 @@ try {
   ```
   import "vector" vec; // builtin module
 
-  import "./ops.mainl" ops; // custom file
+  import "./ops.myriad" ops; // custom file
 
   const sum = ops.add(1, 2);
 

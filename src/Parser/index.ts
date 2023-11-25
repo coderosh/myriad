@@ -15,6 +15,7 @@ import {
   ExpressionStatement,
   ForStatement,
   FunctionDeclaration,
+  FunctionExpression,
   Identier,
   IfStatement,
   ImportStatement,
@@ -312,9 +313,20 @@ class Parser {
   }
 
   private functionDeclaration(): Node {
+    const tk = this.functionHelper(true);
+
+    return {
+      type: "FunctionDeclaration",
+      name: tk.name as string,
+      params: tk.params,
+      body: tk.body,
+    } as FunctionDeclaration;
+  }
+
+  private functionHelper(hasIdentifier: boolean) {
     this.eat(TokenType.Function);
 
-    const name = this.eat(TokenType.Identifier).value;
+    const name = hasIdentifier ? this.eat(TokenType.Identifier).value : null;
 
     this.eat(TokenType.OpenParen);
 
@@ -329,11 +341,10 @@ class Parser {
     const body = this.blockStatement();
 
     return {
-      type: "FunctionDeclaration",
       name,
       params,
       body,
-    } as FunctionDeclaration;
+    };
   }
 
   private parameterList(): string[] {
@@ -734,6 +745,9 @@ class Parser {
         this.eat(TokenType.CloseParen);
         return expression;
 
+      case TokenType.Function:
+        return this.functionExpression();
+
       case TokenType.OpenCurly:
         return this.objectExpression();
 
@@ -749,6 +763,16 @@ class Parser {
           info.column
         );
     }
+  }
+
+  private functionExpression(): Node {
+    const tk = this.functionHelper(false);
+
+    return {
+      type: "FunctionExpression",
+      params: tk.params,
+      body: tk.body,
+    } as FunctionExpression;
   }
 
   private arrayExpression(): Node {

@@ -24,7 +24,7 @@ if (hasArg("-v") || hasArg("--version")) {
   fromFile(file);
 } else {
   const pkg = getPkgInfo();
-  repl("main", pkg.name, pkg.version);
+  repl("myriad", pkg.name, pkg.version);
 }
 
 function hasArg(key: string) {

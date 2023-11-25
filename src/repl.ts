@@ -4,7 +4,11 @@ import { print } from "./Interpreter/utils";
 import { getRunner, LangType } from "./index";
 import { Value } from "./Interpreter/types";
 
-const repl = async (type: LangType = "main", name: string, version: number) => {
+const repl = async (
+  type: LangType = "myriad",
+  name: string,
+  version: number
+) => {
   console.log(`\n Repl ${name} v${version} \n`);
 
   let run = getRunner(type);

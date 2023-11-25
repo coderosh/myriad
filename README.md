@@ -30,7 +30,7 @@ npm install -g @coderosh/myriad
 myriad
 
 # Run file
-myriad file.mainl
+myriad file.myriad
 myriad doc.genzl
 myriad fiwe.uwul
 myriad scroll.piratel
@@ -44,7 +44,7 @@ myriad file.nepalil
 
 ## Flavours
 
-- main
+- myriad
 - genz
 - uwu
 - pirate
@@ -56,7 +56,7 @@ You can find examples for each flavours inside [examples](./examples)
 
 ## Documentation
 
-- [main](./docs/main.md)
+- [myriad](./docs/myriad.md)
 - genz
 - uwu
 - pirate

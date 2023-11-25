@@ -3,10 +3,10 @@ import configs from "./configs";
 import Interpreter from "./Interpreter";
 import getGlobalEnvironment from "./Interpreter/globalEnv";
 
-export type LangType = "main" | "genz" | "nepali";
+export type LangType = "myriad" | "genz" | "nepali" | "uwu" | "pirate";
 
-const getRunner = (type: LangType = "main") => {
-  if (!(type in configs)) type = "main";
+const getRunner = (type: LangType = "myriad") => {
+  if (!(type in configs)) type = "myriad";
 
   const config = configs[type];
 

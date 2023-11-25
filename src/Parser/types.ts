@@ -24,6 +24,7 @@ export type NodeType =
   | "ObjectExpression"
   | "ArrayExpression"
   | "UnaryExpression"
+  | "FunctionExpression"
   | "Identifier"
   | "NumericLiteral"
   | "StringLiteral"
@@ -171,6 +172,12 @@ export interface MemberExpression extends Node {
   object: Node;
   prop: Node;
   computed: boolean;
+}
+
+export interface FunctionExpression extends Node {
+  type: "FunctionExpression";
+  params: string[];
+  body: Node;
 }
 
 export interface Identier extends Node {

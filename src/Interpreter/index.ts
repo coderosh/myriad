@@ -24,6 +24,7 @@ import {
   ImportStatement,
   ExportStatement,
   ForStatement,
+  FunctionExpression,
 } from "../Parser/types";
 import {
   Value,
@@ -151,6 +152,9 @@ class Interpreter {
 
       case "ExportStatement":
         return this.exportStatement(node as ExportStatement, env);
+
+      case "FunctionExpression":
+        return this.functionExpression(node as FunctionExpression, env);
     }
 
     throw new Error(`"${node.type}" Not implemented yet by interpreter`);
@@ -174,7 +178,7 @@ class Interpreter {
       .map((p) => path.parse(p).name);
 
     if (modulesList.includes(p)) {
-      return path.join(modulesPath, p + ".mainl");
+      return path.join(modulesPath, p + ".myriad");
     }
 
     let fullPath = path.join(process.cwd(), p);
@@ -183,7 +187,7 @@ class Interpreter {
       throw new Error(`Trying to import ${fullPath} which doesn't exist`);
 
     if (fs.statSync(fullPath).isDirectory()) {
-      fullPath = path.join(fullPath, "main.mainl");
+      fullPath = path.join(fullPath, "main.myriad");
     }
 
     if (!fs.existsSync(fullPath))
@@ -584,6 +588,18 @@ class Interpreter {
       default:
         return mkNull();
     }
+  }
+
+  private functionExpression(node: FunctionExpression, env: Environment) {
+    const fn = {
+      type: "function",
+      name: "",
+      body: node.body,
+      params: node.params,
+      env: env,
+    } as FunctionValue;
+
+    return fn;
   }
 
   private arrayExpression(node: ArrayExpression, env: Environment) {
