@@ -1,5 +1,5 @@
 func isPalindrome(str) {
-    const length = len(str);
+    const length = str.length;
 
     let i = 0;
     while(i < length / 2) {

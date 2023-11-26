@@ -1,7 +1,7 @@
 func binarySearch (arr, x) {
 
     let start = 0; 
-    let end = len(arr) - 1;
+    let end = arr.length - 1;
          
     while (start<=end){
  

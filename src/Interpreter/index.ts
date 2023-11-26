@@ -380,13 +380,17 @@ class Interpreter {
       );
     }
 
-    if (value.type === "string") {
-      return mkString(value.value[prop]);
-    }
-
     if (value.type === "array" && typeof prop === "number") {
       const val = value.value[prop];
+
       if (val) return val;
+      return mkNull();
+    }
+
+    if (value.type === "string" && typeof prop === "number") {
+      const val = value.value[prop];
+
+      if (val) return mkString(val);
       return mkNull();
     }
 
@@ -398,6 +402,15 @@ class Interpreter {
       }
 
       return val;
+    }
+
+    if (value.type === "string" || value.type === "array") {
+      const obj = env.lookup(`__${value.type}__`).value;
+
+      if (obj.has(prop)) {
+        const val: Value = obj.get(prop).value([value]);
+        return val;
+      }
     }
 
     throw new Error(

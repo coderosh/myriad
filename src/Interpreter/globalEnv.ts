@@ -1,7 +1,13 @@
 import print from "./print";
 import Environment from "./Environment";
-import { ObjectValue, Value } from "./types";
-import { mkNativeFunction, mkNull, mkNumber, mkString } from "./utils";
+import { Value } from "./types";
+import {
+  mkNativeFunction,
+  mkNull,
+  mkNumber,
+  mkObject,
+  mkString,
+} from "./utils";
 
 const functions = {
   print: (args: Value[]) => {
@@ -48,7 +54,13 @@ const functions = {
 };
 
 const objects = {
-  math: new Map<string, Value>([
+  __string__: [
+    ["length", mkNativeFunction((args) => mkNumber(args[0].value.length))],
+  ],
+  __array__: [
+    ["length", mkNativeFunction((args) => mkNumber(args[0].value.length))],
+  ],
+  math: [
     ["rand", mkNativeFunction(() => mkNumber(Math.random()))],
     ["abs", mkNativeFunction((args) => mkNumber(Math.abs(args[0].value)))],
     ["ceil", mkNativeFunction((args) => mkNumber(Math.ceil(args[0].value)))],
@@ -58,30 +70,22 @@ const objects = {
     ["sin", mkNativeFunction((args) => mkNumber(Math.sin(args[0].value)))],
     ["tan", mkNativeFunction((args) => mkNumber(Math.tan(args[0].value)))],
     ["pi", mkNumber(Math.PI)],
-  ]),
-  dt: new Map<string, Value>([
+  ],
+  dt: [
     ["now", mkNativeFunction(() => mkNumber(Date.now()))],
     [
       "date",
       mkNativeFunction((args) => {
-        let date: Date;
+        const date = args[0] ? new Date(args[0].value) : new Date();
 
-        if (args[0]) {
-          date = new Date(args[0].value);
-        } else {
-          date = new Date();
-        }
-        return {
-          type: "object",
-          value: new Map([
-            ["date", mkNativeFunction(() => mkNumber(date.getDate()))],
-            ["year", mkNativeFunction(() => mkNumber(date.getFullYear()))],
-            ["month", mkNativeFunction(() => mkNumber(date.getMonth()))],
-          ]),
-        } as ObjectValue;
+        return mkObject([
+          ["date", mkNativeFunction(() => mkNumber(date.getDate()))],
+          ["year", mkNativeFunction(() => mkNumber(date.getFullYear()))],
+          ["month", mkNativeFunction(() => mkNumber(date.getMonth()))],
+        ]);
       }),
     ],
-  ]),
+  ],
 };
 
 const getGlobalEnvironment = (globalEnvConfig: { [key: string]: any }) => {
@@ -100,16 +104,9 @@ const getGlobalEnvironment = (globalEnvConfig: { [key: string]: any }) => {
 
   Object.keys(objects).map((key) => {
     const name = globalEnvConfig[key] || key;
-    const obj = objects[key as keyof typeof objects];
+    const obj = objects[key as keyof typeof objects] as [string, Value][];
 
-    globalEnvironment.declare(
-      name,
-      {
-        type: "object",
-        value: obj,
-      } as ObjectValue,
-      true
-    );
+    globalEnvironment.declare(name, mkObject(obj), true);
   });
 
   return globalEnvironment;

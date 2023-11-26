@@ -1,7 +1,7 @@
 kaam binarySearch (arr, x) {
 
     manum start barabar 0 rok 
-    manum end barabar lambai(arr) - 1 rok
+    manum end barabar arr.length - 1 rok
          
     jabasamma (start sabarabar end){
  

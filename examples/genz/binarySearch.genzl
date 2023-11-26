@@ -1,7 +1,7 @@
 squad binarySearch (arr, x) {
 
     lit start be 0 rn 
-    lit end be lenz(arr) - 1 rn
+    lit end be arr.length - 1 rn
          
     tweark (start slaybe end){
  

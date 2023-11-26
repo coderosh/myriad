@@ -75,7 +75,7 @@ function getStringPrintValue(
   strValue: StringValue,
   printDecoratedString: boolean
 ): string {
-  const val = strValue.value;
+  const val = `${strValue.value}`;
 
   if (!printDecoratedString) return val;
 
