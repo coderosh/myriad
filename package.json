@@ -8,6 +8,7 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
+    "test": "vitest run --coverage",
     "prepublishOnly": "npm run build"
   },
   "files": [
@@ -37,7 +38,9 @@
   "devDependencies": {
     "@types/node": "^20.9.2",
     "@types/readline-sync": "^1.4.7",
-    "typescript": "^5.2.2"
+    "@vitest/coverage-v8": "^0.34.6",
+    "typescript": "^5.2.2",
+    "vitest": "^0.34.6"
   },
   "dependencies": {
     "ansi-colors": "^4.1.3",

@@ -14,7 +14,7 @@ const getRunner = (type: LangType = "myriad") => {
   const interpreter = new Interpreter(config);
   const environment = getGlobalEnvironment(config.globalEnvConfig);
 
-  return (src: string, returnEnv = false) => {
+  return (src: string, returnEnv = false, throwError = false) => {
     try {
       const ast = parser.parse(src);
       const result = interpreter.eval(ast, environment);
@@ -23,6 +23,8 @@ const getRunner = (type: LangType = "myriad") => {
 
       return result;
     } catch (error) {
+      if (throwError) throw error;
+
       // TODO: error handle
       console.log("ERROR", error);
     }

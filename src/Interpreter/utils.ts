@@ -1,9 +1,7 @@
-import { colors } from "../utils";
 import Environment from "./Environment";
 import {
   ArrayValue,
   BooleanValue,
-  FunctionValue,
   NativeFunctionValue,
   NullValue,
   NumberValue,
@@ -30,6 +28,15 @@ export const mkBoolean = (value: boolean) => {
 
 export const mkIgnore = () => {
   return { type: "ignore" } as Value;
+};
+
+export const mkArray = (value: Value[]) => {
+  return { type: "array", value } as ArrayValue;
+};
+
+export const mkObject = (val: [string, Value][]) => {
+  const value = new Map(val);
+  return { type: "object", value } as ObjectValue;
 };
 
 export const mkNativeFunction = (

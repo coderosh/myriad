@@ -1,10 +1,9 @@
 import { Value } from "./types";
 
 class Environment {
-  private parent: Environment | null;
-  private variables: Map<string, Value>;
-  private constants: Set<string>;
-
+  public parent: Environment | null;
+  public variables: Map<string, Value>;
+  public constants: Set<string>;
   public exported: Map<string, Value>;
 
   constructor(parent: Environment | null = null) {

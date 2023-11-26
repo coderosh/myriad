@@ -14,9 +14,11 @@ import { mkIgnore } from "./utils";
 const print = (
   args: Value[],
   printEscapeSequence = true,
-  printDecoratedString = false
+  shouldPreserveEscapeSequence = false
 ): Value => {
-  let values = args.map((arg) => getPrintValue(arg, printDecoratedString));
+  let values = args.map((arg) =>
+    getPrintValue(arg, shouldPreserveEscapeSequence)
+  );
 
   if (printEscapeSequence)
     values = values.map((val) => preserveEscapeSequence(`${val}`));
@@ -26,10 +28,13 @@ const print = (
   return mkIgnore();
 };
 
-const getPrintValue = (arg: Value, printDecoratedString = false) => {
+const getPrintValue = (arg: Value, shouldPreserveEscapeSequence = false) => {
   switch (arg.type) {
     case "string":
-      return getStringPrintValue(arg as StringValue, printDecoratedString);
+      return getStringPrintValue(
+        arg as StringValue,
+        shouldPreserveEscapeSequence
+      );
 
     case "number":
       return getNumberPrintValue(arg as NumberValue);
@@ -51,9 +56,6 @@ const getPrintValue = (arg: Value, printDecoratedString = false) => {
 
     case "array":
       return getArrayPrintValue(arg as ArrayValue);
-
-    default:
-      return null;
   }
 };
 
@@ -90,7 +92,7 @@ function getFunctionPrintValue(funcValue: FunctionValue): string {
   const params = funcValue.params.join(", ");
   if (!name) return colors.blue(`[AnonymousFunction](${params})`);
 
-  return colors.blue(`[Function](${params})`);
+  return colors.blue(`[Function:${name}](${params})`);
 }
 
 function getArrayPrintValue(arrValue: ArrayValue): string {
@@ -129,7 +131,7 @@ function getObjPrintValue(objValue: ObjectValue) {
   return str;
 }
 
-function preserveEscapeSequence(s: string) {
+export function preserveEscapeSequence(s: string) {
   return s.replace(/\\([\\rnt'"])/g, function (_, a) {
     if (a === "n") return "\n";
     if (a === "t") return "\t";
