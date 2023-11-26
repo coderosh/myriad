@@ -77,11 +77,38 @@ let val;
 
 if (x > 0) {
   val = "positive";
-} else if (x < 0) {
+ else if (x < 0) {
   val = "negative";
 } else {
   val = "equal";
 }
+
+print(val);
+```
+
+Curly braces are optional of body has single statement
+
+```js
+let val;
+
+if (x > 0) val = "positive";
+else if (x < 0) val = "negative";
+else val = "equal";
+
+print(val);
+```
+
+Also parenthesis are optional in test condition.
+
+```js
+let val;
+
+if x > 0
+  val = "positive";
+else if x < 0
+  val = "negative";
+else
+  val = "equal";
 
 print(val);
 ```

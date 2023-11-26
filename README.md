@@ -1,4 +1,9 @@
+<p align="center">
+  <img src="./assets/logo.png" alt="logo" width="100">
+</p>
+
 <h2 align="center">Myriad</h2>
+
 <p align="center">A esoteric programming language written in typescript supporting different flavours (genz, uwu, pirate, etc).</p>
 
 <br />
