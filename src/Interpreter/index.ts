@@ -51,7 +51,6 @@ import {
 import fs from "fs";
 import path from "path";
 import { LangType, getRunner } from "..";
-import { getPrintValue } from "./print";
 
 class Interpreter {
   private config: {

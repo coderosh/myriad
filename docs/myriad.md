@@ -216,3 +216,51 @@ try {
 
   const vec = vec.create(2, 4);
   ```
+
+## String methods
+
+- length
+
+  ```js
+  let name = "Roshan";
+
+  print(name.length());
+  ```
+
+- split
+
+  ```js
+  let name = "Roshan Acharya";
+
+  print(name.split(" "));
+  ```
+
+- uppercase
+
+  ```js
+  let name = "Roshan";
+
+  print(name.uppercase());
+  ```
+
+- lowercase
+
+  ```js
+  let name = "Roshan";
+
+  print(name.lowercase());
+  ```
+
+## Array methods
+
+- length
+
+  ```js
+  print([1, 2, 3].length());
+  ```
+
+- join
+
+  ```js
+  print([1, 2, 3].join("-"));
+  ```
