@@ -33,6 +33,7 @@ import {
   FunctionValue,
   NativeFunctionValue,
   ArrayValue,
+  StringValue,
 } from "./types";
 
 import Environment from "./Environment";
@@ -42,6 +43,7 @@ import {
   FalseReturnError,
   mkBoolean,
   mkIgnore,
+  mkNativeFunction,
   mkNull,
   mkNumber,
   mkString,
@@ -49,6 +51,7 @@ import {
 import fs from "fs";
 import path from "path";
 import { LangType, getRunner } from "..";
+import { getPrintValue } from "./print";
 
 class Interpreter {
   private config: {
@@ -338,12 +341,15 @@ class Interpreter {
     return mkIgnore();
   }
 
-  private memberExpression(
-    node: MemberExpression,
-    env: Environment,
-    set?: Value
-  ): Value {
+  private getMemberExpressionProp(node: MemberExpression, env: Environment) {
+    return node.computed || node.prop.type === "NumericLiteral"
+      ? this.eval(node.prop, env).value
+      : (node.prop as Identier).name;
+  }
+
+  private getMemberExpressionValue(node: MemberExpression, env: Environment) {
     let value: Value;
+
     if (node.object.type === "MemberExpression") {
       value = this.memberExpression(node.object as MemberExpression, env);
     } else if (node.object.type === "CallExpression") {
@@ -355,31 +361,10 @@ class Interpreter {
       value = this.eval(node.object, env);
     }
 
-    const prop =
-      node.computed || node.prop.type === "NumericLiteral"
-        ? this.eval(node.prop, env).value
-        : (node.prop as Identier).name;
+    return value;
+  }
 
-    if (typeof set !== "undefined") {
-      if (value.type === "object") {
-        value.value.set(prop, set);
-      } else if (value.type === "array" && typeof prop === "number") {
-        value.value[prop] = set;
-      } else {
-        throw new Error(
-          `Member property can be assigned to object only. Assigned to ${JSON.stringify(
-            prop
-          )}`
-        );
-      }
-    }
-
-    if (value.value === null) {
-      throw new Error(
-        `Cannot read property of a null value, reading ${JSON.stringify(prop)}`
-      );
-    }
-
+  private memberExpressionWithNumberProp(value: Value, prop: any) {
     if (value.type === "array" && typeof prop === "number") {
       const val = value.value[prop];
 
@@ -394,12 +379,50 @@ class Interpreter {
       return mkNull();
     }
 
+    return undefined;
+  }
+
+  private memberExpressionHandleSet(value: Value, prop: any, set: Value) {
+    if (typeof set !== "undefined") {
+      if (value.type === "object") {
+        value.value.set(prop, set);
+      } else if (value.type === "array" && typeof prop === "number") {
+        value.value[prop] = set;
+      } else {
+        throw new Error(
+          `Assignment to ${value.type}[${JSON.stringify(prop)}] is not allowed`
+        );
+      }
+    }
+  }
+
+  private memberExpression(
+    node: MemberExpression,
+    env: Environment,
+    set?: Value
+  ): Value {
+    const value = this.getMemberExpressionValue(node, env);
+    const prop = this.getMemberExpressionProp(node, env);
+
+    if (value.value === null) {
+      throw new Error(
+        `Cannot read property of a null value, reading ${JSON.stringify(prop)}`
+      );
+    }
+
+    if (typeof set !== "undefined") {
+      this.memberExpressionHandleSet(value, prop, set);
+    }
+
+    const findIndices = this.memberExpressionWithNumberProp(value, prop);
+    if (findIndices) {
+      return findIndices;
+    }
+
     if (value.type === "object") {
       let val = value.value.get(prop);
 
-      if (typeof val === "undefined") {
-        val = mkNull();
-      }
+      if (typeof val === "undefined") val = mkNull();
 
       return val;
     }
@@ -408,8 +431,11 @@ class Interpreter {
       const obj = env.lookup(`__${value.type}__`).value;
 
       if (obj.has(prop)) {
-        const val: Value = obj.get(prop).value([value]);
-        return val;
+        const val: NativeFunctionValue = obj.get(prop);
+
+        return mkNativeFunction((args, env) =>
+          val.value([value, args[0]], env)
+        );
       }
     }
 

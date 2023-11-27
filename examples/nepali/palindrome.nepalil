@@ -1,5 +1,5 @@
 kaam isPalindrome(str) {
-    sthir length barabar str.length rok
+    sthir length barabar str.length() rok
 
     manum i barabar 0 rok
 

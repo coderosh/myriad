@@ -1,5 +1,5 @@
 squad isPalindrome(str) {
-    litaf length be str.length rn
+    litaf length be str.length() rn
 
     lit i be 0 rn
 

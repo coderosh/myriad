@@ -1,7 +1,7 @@
 voyage binarySearch (arr, x) {
 
     ahoy start binds 0 arrr 
-    ahoy end binds arr.length - 1 arrr
+    ahoy end binds arr.length() - 1 arrr
          
     whilst (start <= end){
  

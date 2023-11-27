@@ -1,5 +1,5 @@
 voyage isPalindrome(str) {
-    unchangin length binds str.length arrr
+    unchangin length binds str.length() arrr
 
     ahoy i binds 0 arrr
 

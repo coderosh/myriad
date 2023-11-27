@@ -28,7 +28,10 @@ const print = (
   return mkIgnore();
 };
 
-const getPrintValue = (arg: Value, shouldPreserveEscapeSequence = false) => {
+export const getPrintValue = (
+  arg: Value,
+  shouldPreserveEscapeSequence = false
+) => {
   switch (arg.type) {
     case "string":
       return getStringPrintValue(

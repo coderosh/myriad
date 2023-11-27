@@ -2,6 +2,7 @@ import print from "./print";
 import Environment from "./Environment";
 import { Value } from "./types";
 import {
+  mkArray,
   mkNativeFunction,
   mkNull,
   mkNumber,
@@ -56,9 +57,38 @@ const functions = {
 const objects = {
   __string__: [
     ["length", mkNativeFunction((args) => mkNumber(args[0].value.length))],
+    [
+      "uppercase",
+      mkNativeFunction((args) => mkString(args[0].value.toUpperCase())),
+    ],
+    [
+      "lowercase",
+      mkNativeFunction((args) => mkString(args[0].value.toLowerCase())),
+    ],
+    [
+      "split",
+      mkNativeFunction((args) => {
+        const str: string = args[0].value;
+        const spChar: string = args[1]?.value || "";
+
+        const arr = str.split(spChar);
+
+        return mkArray(arr.map((el) => mkString(el)));
+      }),
+    ],
   ],
   __array__: [
     ["length", mkNativeFunction((args) => mkNumber(args[0].value.length))],
+    [
+      "join",
+      mkNativeFunction((args) => {
+        const arr: Value[] = args[0].value;
+        const sep: string = args[1]?.value || ",";
+
+        const str = arr.map((el) => el.value).join(sep);
+        return mkString(str);
+      }),
+    ],
   ],
   math: [
     ["rand", mkNativeFunction(() => mkNumber(Math.random()))],
