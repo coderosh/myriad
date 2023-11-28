@@ -401,6 +401,9 @@ class Interpreter {
     set?: Value
   ): Value {
     const value = this.getMemberExpressionValue(node, env);
+
+    env.variables.set("this", value);
+
     const prop = this.getMemberExpressionProp(node, env);
 
     if (value.value === null) {
