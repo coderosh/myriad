@@ -224,7 +224,7 @@ try {
   ```js
   let name = "Roshan";
 
-  print(name.length());
+  print(name.length()); // 6
   ```
 
 - split
@@ -232,7 +232,7 @@ try {
   ```js
   let name = "Roshan Acharya";
 
-  print(name.split(" "));
+  print(name.split(" ")); // ["Roshan", "Acharya"]
   ```
 
 - uppercase
@@ -240,7 +240,7 @@ try {
   ```js
   let name = "Roshan";
 
-  print(name.uppercase());
+  print(name.uppercase()); // ROSHAN
   ```
 
 - lowercase
@@ -248,7 +248,7 @@ try {
   ```js
   let name = "Roshan";
 
-  print(name.lowercase());
+  print(name.lowercase()); // roshan
   ```
 
 ## Array methods
@@ -256,11 +256,29 @@ try {
 - length
 
   ```js
-  print([1, 2, 3].length());
+  print([1, 2, 3].length()); // 3
   ```
 
 - join
 
   ```js
-  print([1, 2, 3].join("-"));
+  print([1, 2, 3].join("-")); // 1-2-3
+  ```
+
+- pop
+
+  ```js
+  ["a", "b", "c"].pop(); // c
+  ```
+
+- push
+
+  ```js
+  ["a", "b", "c"].push("d"); // 4
+  ```
+
+- includes
+
+  ```js
+  [1, 2, 3].includes(2); // true
   ```
