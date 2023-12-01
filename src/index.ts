@@ -1,7 +1,9 @@
 import Parser from "./Parser";
 import configs from "./configs";
 import Interpreter from "./Interpreter";
-import getGlobalEnvironment from "./Interpreter/globalEnv";
+import getGlobalEnvironment from "./Interpreter/globals";
+import { mkNativeFunction } from "./Interpreter/utils";
+import { Value } from "./Interpreter/types";
 
 export type LangType = "myriad" | "genz" | "nepali" | "uwu" | "pirate";
 
@@ -13,6 +15,14 @@ const getRunner = (type: LangType = "myriad") => {
   const parser = new Parser(config);
   const interpreter = new Interpreter(config);
   const environment = getGlobalEnvironment(config.globalEnvConfig);
+
+  environment.declare(
+    "eval",
+    mkNativeFunction(
+      (args) => getRunner(type)(args[0].value, false, false) as Value
+    ),
+    true
+  );
 
   return (src: string, returnEnv = false, throwError = false) => {
     try {

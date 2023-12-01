@@ -23,7 +23,7 @@ func length(vec) {
 }
 
 func dist(vec1, vec2) {
-    return len(sub(vec1, vec2));
+    return length(sub(vec1, vec2));
 }
 
 func equals(vec1, vec2) {

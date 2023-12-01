@@ -1,6 +1,6 @@
 import readline from "readline";
 
-import print from "./Interpreter/print";
+import print from "./Interpreter/globals/functions/print";
 import { getRunner, LangType } from "./index";
 import { Value } from "./Interpreter/types";
 

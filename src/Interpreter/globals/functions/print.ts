@@ -1,4 +1,4 @@
-import { colors } from "../utils";
+import { colors } from "../../../utils";
 import {
   ArrayValue,
   BooleanValue,
@@ -8,14 +8,14 @@ import {
   ObjectValue,
   StringValue,
   Value,
-} from "./types";
-import { mkIgnore } from "./utils";
+} from "../../types";
+import { mkIgnore } from "../../utils";
 
-const print = (
+function print(
   args: Value[],
   printEscapeSequence = true,
   shouldPreserveEscapeSequence = false
-): Value => {
+): Value {
   let values = args.map((arg) =>
     getPrintValue(arg, shouldPreserveEscapeSequence)
   );
@@ -26,7 +26,9 @@ const print = (
   console.log(...values);
 
   return mkIgnore();
-};
+}
+
+export default print;
 
 export const getPrintValue = (
   arg: Value,
@@ -143,5 +145,3 @@ export function preserveEscapeSequence(s: string) {
     return a;
   });
 }
-
-export default print;

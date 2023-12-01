@@ -1,7 +1,9 @@
 import { test, expect, describe, afterAll } from "vitest";
 import { LangType, getLangTypeFromExt, getRunner } from "../src";
 import { vi } from "vitest";
-import print, { preserveEscapeSequence } from "../src/Interpreter/print";
+import print, {
+  preserveEscapeSequence,
+} from "../src/Interpreter/globals/functions/print";
 import {
   mkArray,
   mkBoolean,
