@@ -22,6 +22,15 @@ const string: [string, Value][] = [
       return mkArray(arr.map((el) => mkString(el)));
     }),
   ],
+  [
+    "char_code",
+    mkNativeFunction((args) => {
+      const str: string = args[0].value;
+      const index: number = args[1]?.value || 0;
+
+      return mkNumber(str.charCodeAt(index));
+    }),
+  ],
 ];
 
 export default string;

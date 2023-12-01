@@ -10,6 +10,21 @@ import {
 const array: [string, Value][] = [
   ["length", mkNativeFunction((args) => mkNumber(args[0].value.length))],
   [
+    "foreach",
+    mkNativeFunction((args) => {
+      const arr = args[0];
+      const fn = args[1].value;
+      const len = arr.value.length;
+
+      for (let i = 0; i < len; i++) {
+        const val = arr.value[i];
+        fn([val, mkNumber(i), arr]);
+      }
+
+      return mkNull();
+    }),
+  ],
+  [
     "join",
     mkNativeFunction((args) => {
       const arr: Value[] = args[0].value;

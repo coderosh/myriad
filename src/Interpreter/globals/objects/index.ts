@@ -1,16 +1,17 @@
 import math from "./math";
+import json from "./json";
 import array from "./array";
 import string from "./string";
 import runNode from "./run-node";
 import dateTime from "./dateTime";
-import { NativeFunctionValue, Value } from "../../types";
-import Environment from "../../Environment";
-import json from "./json";
+import { Value } from "../../types";
+import number from "./number";
 
 const objects: Record<string, [string, Value][]> = {
   run_node: runNode,
   __string__: string,
   __array__: array,
+  __number__: number,
   math: math,
   dt: dateTime,
   json: json,

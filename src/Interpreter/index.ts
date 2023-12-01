@@ -429,15 +429,32 @@ class Interpreter {
       return val;
     }
 
-    if (value.type === "string" || value.type === "array") {
+    if (
+      value.type === "string" ||
+      value.type === "array" ||
+      value.type === "number"
+    ) {
       const obj = env.lookup(`__${value.type}__`).value;
 
       if (obj.has(prop)) {
-        const val: NativeFunctionValue = obj.get(prop);
+        const val: Value = obj.get(prop);
 
-        return mkNativeFunction((args, env) =>
-          val.value([value, args[0]], env)
-        );
+        return mkNativeFunction((args, env) => {
+          const params = args.map((arg) => {
+            if (arg.type === "function") {
+              return mkNativeFunction((args) => {
+                return this.handleFunctionValueCall(
+                  arg,
+                  args,
+                  env as Environment
+                );
+              });
+            }
+            return arg;
+          });
+
+          return val.value([value, ...params], env);
+        });
       }
     }
 
@@ -452,25 +469,8 @@ class Interpreter {
     const fn = this.eval(node.callee, env);
 
     try {
-      if (fn.type === "native-function") {
-        return (fn as NativeFunctionValue).value(args, env);
-      }
-
-      if (fn.type === "function") {
-        const func = fn as FunctionValue;
-        const env = new Environment(func.env);
-
-        for (let i = 0; i < func.params.length; i++) {
-          const name = func.params[i];
-          let value = args[i];
-
-          if (typeof value === "undefined") value = mkNull();
-
-          env.declare(name, value, false);
-        }
-
-        return this.eval(func.body, env);
-      }
+      if (fn.type === "function" || fn.type === "native-function")
+        return this.handleFunctionValueCall(fn, args, env);
     } catch (err) {
       if (err instanceof FalseReturnError) {
         return err.value;
@@ -486,6 +486,28 @@ class Interpreter {
         2
       )}`
     );
+  }
+
+  private handleFunctionValueCall(fn: Value, args: Value[], env: Environment) {
+    if (fn.type === "native-function") {
+      return (fn as NativeFunctionValue).value(args, env);
+    }
+
+    if (fn.type === "function") {
+      const func = fn as FunctionValue;
+      const env = new Environment(func.env);
+
+      for (let i = 0; i < func.params.length; i++) {
+        const name = func.params[i];
+        let value = args[i];
+
+        if (typeof value === "undefined") value = mkNull();
+
+        env.declare(name, value, false);
+      }
+
+      return this.eval(func.body, env);
+    }
   }
 
   private unaryExpression(node: UnaryExpression, env: Environment): Value {
