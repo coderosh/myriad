@@ -1,6 +1,6 @@
 {
   "name": "@coderosh/myriad",
-  "version": "0.2.9",
+  "version": "0.2.10",
   "description": "A esoteric programming language written in typescript supporting syntaxes based in different lingos (genz, uwu, pirate, etc)",
   "bin": {
     "myriad": "./bin/myriad"

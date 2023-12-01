@@ -1,7 +1,7 @@
 import vm from "vm";
+import path from "path";
 import { Value } from "../../types";
 import { mkNativeFunction, mkNull, mkNumber, mkString } from "../../utils";
-import path from "path";
 
 const runNode: [string, Value][] = [
   [

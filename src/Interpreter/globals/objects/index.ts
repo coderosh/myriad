@@ -1,11 +1,12 @@
+import fs from "./fs";
 import math from "./math";
 import json from "./json";
 import array from "./array";
+import number from "./number";
 import string from "./string";
 import runNode from "./run-node";
 import dateTime from "./dateTime";
 import { Value } from "../../types";
-import number from "./number";
 
 const objects: Record<string, [string, Value][]> = {
   run_node: runNode,
@@ -15,6 +16,7 @@ const objects: Record<string, [string, Value][]> = {
   math: math,
   dt: dateTime,
   json: json,
+  fs: fs,
 };
 
 export default objects;
