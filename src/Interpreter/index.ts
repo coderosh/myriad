@@ -698,10 +698,6 @@ class Interpreter {
     if (node.operator === this.config.opConfig.orOr)
       result = lhs.value || rhs.value;
 
-    if (typeof result === "undefined") {
-      return mkNull();
-    }
-
     return mkBoolean(Boolean(result));
   }
 
