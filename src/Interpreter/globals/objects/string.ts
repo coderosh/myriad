@@ -4,6 +4,14 @@ import { mkArray, mkNativeFunction, mkNumber, mkString } from "../../utils";
 const string: [string, Value][] = [
   ["length", mkNativeFunction((args) => mkNumber(args[0].value.length))],
   [
+    "replace",
+    mkNativeFunction((args) => {
+      const searchValue = args[1].value;
+      const replaceValue = args[2].value;
+      return mkString(args[0].value.replace(searchValue, replaceValue));
+    }),
+  ],
+  [
     "uppercase",
     mkNativeFunction((args) => mkString(args[0].value.toUpperCase())),
   ],

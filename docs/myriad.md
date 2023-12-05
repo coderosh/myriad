@@ -235,6 +235,12 @@ try {
   print(name.split(" ")); // ["Roshan", "Acharya"]
   ```
 
+- replace
+
+  ```js
+  let name = "Roshan".replace("R", "r"); // roshan
+  ```
+
 - uppercase
 
   ```js
@@ -281,4 +287,12 @@ try {
 
   ```js
   [1, 2, 3].includes(2); // true
+  ```
+
+- foreach
+
+  ```js
+  [1, 2, 3].forEach(func (val, i) {
+    print(val, i);
+  })
   ```
