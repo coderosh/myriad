@@ -533,8 +533,9 @@ class Interpreter {
   private blockStatement(node: BlockStatement, env: Environment): Value {
     let lastValue: Value = mkNull();
 
+    const scope = new Environment(env);
     for (const statement of node.body) {
-      lastValue = this.eval(statement, env);
+      lastValue = this.eval(statement, scope);
     }
 
     return lastValue;

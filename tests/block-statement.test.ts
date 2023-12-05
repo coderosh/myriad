@@ -8,9 +8,12 @@ describe("myriad", () => {
   const run = getRunner();
 
   test("block statement should work", () => {
-    const val = run(`{ let name = "Roshan Acharya"; }`, true) as Environment;
+    const val = run(
+      `let name = "Myriad"; { let name = "Roshan Acharya"; }`,
+      true
+    ) as Environment;
 
-    expect(val.variables.get("name")?.value).toBe("Roshan Acharya");
+    expect(val.variables.get("name")?.value).toBe("Myriad");
   });
 
   test("empty statements should work", () => {
