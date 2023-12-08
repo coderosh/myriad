@@ -20,7 +20,10 @@ const json: [string, Value][] = [
   [
     "stringify",
     mkNativeFunction((args) => {
-      throw new Error(`json.stringify is not implemented yet`);
+      const val = stringify(args[0]);
+      const space = args[1]?.value;
+
+      return mkString(JSON.stringify(val, null, space));
     }),
   ],
 ];
@@ -45,4 +48,29 @@ const parse = (obj: any): Value => {
   }
 
   return { type: "object", value: map } as ObjectValue;
+};
+
+const stringify = (value: Value) => {
+  if (
+    value.type === "string" ||
+    value.type === "boolean" ||
+    value.type === "number" ||
+    value.type === "null"
+  )
+    return value.value;
+
+  if (value.type === "array")
+    return value.value.map((el: Value) => stringify(el));
+
+  if (value.type === "object") {
+    const obj: Record<string, any> = {};
+
+    for (const key of value.value.keys()) {
+      obj[key] = stringify(value.value.get(key));
+    }
+
+    return obj;
+  }
+
+  return null;
 };
