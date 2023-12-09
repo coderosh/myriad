@@ -296,3 +296,154 @@ try {
     print(val, i);
   })
   ```
+
+## Global Functions
+
+- format
+
+  ```js
+  format("My Name is {}", "Roshan");
+  ```
+
+- print
+
+  ```js
+  print("Hello World");
+  ```
+
+- input
+
+  ```js
+  input("> Enter your age ");
+  ```
+
+- typeof
+
+  ```js
+  typeof 34;
+  ```
+
+## Global Objects
+
+### Math
+
+- rand
+- abs
+- ceil
+- floor
+- round
+- cos
+- sin
+- tan
+
+### Json
+
+- stringify
+
+  ```js
+  json.stringify(obj);
+  ```
+
+- parse
+
+  ```js
+  json.parse(str);
+  ```
+
+### dt
+
+- now
+
+  ```js
+  dt.now();
+  ```
+
+- date
+
+  ```js
+  const date = dt.date("2000-01-01");
+
+  date.date();
+  date.year();
+  date.month();
+  ```
+
+### http
+
+- server
+
+  ```js
+  const server = http.server(func (req, res){
+
+      if(req.url == "/json") {
+          res.setHeader("Content-Type", "application/json");
+
+          const msg = json.stringify({ message: "Hello World" });
+          res.send(msg);
+
+          return;
+      }
+
+      if(req.method === "POST") {
+        const body = JSON.parse(req.body);
+
+        res.send("Your name is: " + body.name);
+
+        return;
+      }
+
+      print(req.headers);
+
+      res.send("Hello World");
+  })
+
+  server.listen(3000);
+
+  print("Listening on port 3000");
+  ```
+
+### fs
+
+- write
+
+  ```js
+  fs.write("file.txt", "Hello");
+  ```
+
+- read
+
+  ```js
+  fs.read("file.txt");
+  ```
+
+- stat
+
+  ```js
+  fs.stat("file.txt");
+  ```
+
+- mkdir
+
+  ```js
+  fs.mkdir("testdir");
+  ```
+
+- readdir
+
+  ```js
+  fs.readdir("testdir");
+  ```
+
+- rmrf
+
+  ```js
+  fs.rmrf("directory");
+  ```
+
+### run_node
+
+- run
+
+  ```js
+  run_node.run(`console.log("Hello")`);
+  ```

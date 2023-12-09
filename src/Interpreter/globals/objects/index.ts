@@ -7,6 +7,7 @@ import string from "./string";
 import runNode from "./run-node";
 import dateTime from "./dateTime";
 import { Value } from "../../types";
+import httpServer from "./http";
 
 const objects: Record<string, [string, Value][]> = {
   run_node: runNode,
@@ -17,6 +18,7 @@ const objects: Record<string, [string, Value][]> = {
   dt: dateTime,
   json: json,
   fs: fs,
+  http: httpServer,
 };
 
 export default objects;

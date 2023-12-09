@@ -10,7 +10,7 @@ const runNode: [string, Value][] = [
       const code = String(args[0].value);
       const result = vm.runInNewContext(
         code,
-        { require: require },
+        { require: require, console: console },
         { filename: path.join(process.cwd(), "index.js") }
       );
 

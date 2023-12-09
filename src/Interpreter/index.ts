@@ -488,7 +488,7 @@ class Interpreter {
     );
   }
 
-  private handleFunctionValueCall(fn: Value, args: Value[], env: Environment) {
+  public handleFunctionValueCall(fn: Value, args: Value[], env: Environment) {
     if (fn.type === "native-function") {
       return (fn as NativeFunctionValue).value(args, env);
     }
@@ -551,6 +551,8 @@ class Interpreter {
       body: node.body,
       params: node.params,
       env: env,
+      value: null,
+      _i: this,
     } as FunctionValue;
 
     env.declare(node.name, fn, true);
@@ -661,6 +663,8 @@ class Interpreter {
       body: node.body,
       params: node.params,
       env: env,
+      value: null,
+      _i: this,
     } as FunctionValue;
 
     return fn;

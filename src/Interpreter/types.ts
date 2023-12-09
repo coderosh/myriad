@@ -1,3 +1,4 @@
+import Interpreter from ".";
 import { Node } from "../Parser/types";
 import type Environment from "./Environment";
 
@@ -53,6 +54,7 @@ export interface FunctionValue extends Value {
   params: string[];
   env: Environment;
   body: Node;
+  _i: Interpreter;
 }
 
 export interface NativeFunctionValue extends Value {
