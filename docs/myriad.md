@@ -1,3 +1,5 @@
+> Install [this vscode extension](https://marketplace.visualstudio.com/items?itemName=Roshan.myriad) for syntax highlight
+
 ## Declarations
 
 - Variables
@@ -376,7 +378,7 @@ try {
   const server = http.server(func (req, res){
 
       if(req.url == "/json") {
-          res.setHeader("Content-Type", "application/json");
+          res.set_header("Content-Type", "application/json");
 
           const msg = json.stringify({ message: "Hello World" });
           res.send(msg);
@@ -384,8 +386,8 @@ try {
           return;
       }
 
-      if(req.method === "POST") {
-        const body = JSON.parse(req.body);
+      if(req.method == "POST") {
+        const body = json.parse(req.body);
 
         res.send("Your name is: " + body.name);
 

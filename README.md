@@ -67,7 +67,7 @@ Examples for each flavours are inside the [examples](./examples)
 
 ## Documentation
 
-Documentation for each flavours are inside the [docs](./dcs)
+Documentation for each flavours are inside the [docs](./docs)
 
 - [myriad](./docs/myriad.md)
 - genz

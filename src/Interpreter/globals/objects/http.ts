@@ -64,7 +64,7 @@ async function makeRequestObject(req: http.IncomingMessage) {
 
   return mkObject([
     ["headers", mkObject(headersObj)],
-    ["statusCode", req.statusCode ? mkNumber(req.statusCode) : mkNull()],
+    ["status_code", req.statusCode ? mkNumber(req.statusCode) : mkNull()],
     ["url", req.url ? mkString(req.url) : mkNull()],
     ["method", req.method ? mkString(req.method) : mkNull()],
     ["body", mkString(body)],
@@ -87,7 +87,7 @@ function makeResponseObject(
       }),
     ],
     [
-      "setHeader",
+      "set_header",
       mkNativeFunction((args) => {
         const key = args[0].value || "";
         const val = args[1].value || "";
