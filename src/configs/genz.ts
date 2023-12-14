@@ -61,5 +61,7 @@ export const spSymbolConfig = {
 export const globalEnvConfig = {
   print: "flex",
   input: "spill",
+  format: "tweak",
+  typeof: "vibecheck",
   len: "lenz",
 };

@@ -62,4 +62,6 @@ export const globalEnvConfig = {
   print: "shout",
   input: "listen",
   len: "headcount",
+  typeof: "wotbe",
+  format: "arrange",
 };

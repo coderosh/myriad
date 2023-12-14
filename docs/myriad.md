@@ -321,8 +321,8 @@ try {
 
 - typeof
 
-  ```js
-  typeof 34;
+  ```
+  typeof(34);
   ```
 
 ## Global Objects

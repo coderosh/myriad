@@ -59,7 +59,9 @@ export const spSymbolConfig = {
 };
 
 export const globalEnvConfig = {
+  len: "len",
   print: "print",
   input: "input",
-  len: "len",
+  format: "format",
+  typeof: "typeof",
 };

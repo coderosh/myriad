@@ -62,4 +62,6 @@ export const globalEnvConfig = {
   print: "lekh",
   input: "bhan",
   len: "lambai",
+  typeof: "prakar",
+  format: "banau",
 };

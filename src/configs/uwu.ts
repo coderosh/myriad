@@ -62,4 +62,6 @@ export const globalEnvConfig = {
   print: "pwint",
   input: "inpawt",
   len: "wen",
+  format: "fowmat",
+  typeof: "nyan",
 };

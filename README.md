@@ -70,7 +70,7 @@ Examples for each flavours are inside the [examples](./examples)
 Documentation for each flavours are inside the [docs](./docs)
 
 - [myriad](./docs/myriad.md)
-- genz
+- [genz](./docs/genz.md)
 - uwu
 - pirate
 - nepali

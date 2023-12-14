@@ -1,14 +1,20 @@
 import objects from "./objects";
-import functions from "./functions";
-import Environment from "../Environment";
 import { Value } from "../types";
+import Environment from "../Environment";
+import getGlobalFunctions, { GlobalFuncConfig } from "./functions";
 import { mkNativeFunction, mkObject } from "../utils";
 
-const getGlobalEnvironment = (globalEnvConfig: { [key: string]: any }) => {
+interface GlobalEnvConfig extends GlobalFuncConfig {
+  [key: string]: any;
+}
+
+const getGlobalEnvironment = (globalEnvConfig: GlobalEnvConfig) => {
   const globalEnvironment = new Environment();
 
+  const functions = getGlobalFunctions(globalEnvConfig);
+
   Object.keys(functions).map((fnName) => {
-    const name = globalEnvConfig[fnName] || fnName;
+    const name = fnName;
     const fn = functions[fnName as keyof typeof functions];
 
     globalEnvironment.declare(
